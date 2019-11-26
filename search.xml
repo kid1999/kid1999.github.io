@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Jpa基础知识点</title>
+      <link href="/2019/11/27/Jpa%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+      <url>/2019/11/27/Jpa%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Jpa基础知识点"><a href="#Jpa基础知识点" class="headerlink" title="Jpa基础知识点"></a>Jpa基础知识点</h1><ul><li>JPA是Java Persistence API的简称，中文名Java持久层API，是JDK 5.0注解或XML描述对象－关系表的映射关系，并将运行期的实体对象持久化到数据库中。</li><li>Spring Data JPA是较大的Spring Data系列的一部分，可轻松实现基于JPA的存储库。该模块处理对基于JPA的数据访问层的增强支持。它使构建使用数据访问技术的Spring支持的应用程序变得更加容易。</li></ul><h2 id="1-JPA的基本配置"><a href="#1-JPA的基本配置" class="headerlink" title="1.JPA的基本配置"></a>1.JPA的基本配置</h2><ol><li>pom依赖</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure><h2 id="2-项目配置文件"><a href="#2-项目配置文件" class="headerlink" title="2. 项目配置文件"></a>2. 项目配置文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  # mysql 配置：</span><br><span class="line">  datasource:</span><br><span class="line">    driver-class-name: com.mysql.cj.jdbc.Driver</span><br><span class="line">    url: jdbc:mysql://10.16.11.230:3306/website?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8</span><br><span class="line">    username: root</span><br><span class="line">    password: root</span><br><span class="line">  jpa:</span><br><span class="line">    hibernate:</span><br><span class="line">      ddl-auto: update</span><br><span class="line">    show-sql: true</span><br></pre></td></tr></table></figure><h2 id="3-创建一个实体类"><a href="#3-创建一个实体类" class="headerlink" title="3. 创建一个实体类"></a>3. 创建一个实体类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">package io.kid1999.teacher_manager.model;</span><br><span class="line">import lombok.Data;</span><br><span class="line">import javax.persistence.*;</span><br><span class="line"></span><br><span class="line">@Entity</span><br><span class="line">@Table(name = &quot;user&quot;)</span><br><span class="line">@Data</span><br><span class="line">public class User &#123;</span><br><span class="line"></span><br><span class="line">@Id</span><br><span class="line">@GeneratedValue</span><br><span class="line">@Column(name = &quot;id&quot;)</span><br><span class="line">private Integer id;</span><br><span class="line"></span><br><span class="line">@Column(name = &quot;name&quot;)</span><br><span class="line">private String name;</span><br><span class="line"></span><br><span class="line">@Column(name = &quot;addr&quot;)</span><br><span class="line">private String addr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">JPA自带的几种主键生成策略</span><br><span class="line">TABLE： 使用一个特定的数据库表格来保存主键。</span><br><span class="line">SEQUENCE： 根据底层数据库的序列来生成主键，条件是数据库支持序列。这个值要与generator一起使用，generator 指定生成主键使用的生成器（可能是orcale中自己编写的序列）。</span><br><span class="line">IDENTITY： 主键由数据库自动生成（主要是支持自动增长的数据库，如mysql）。</span><br><span class="line">AUTO： 主键由程序控制，也是GenerationType的默认值。</span><br></pre></td></tr></table></figure><h2 id="4-Repository-层-实现-Repository-标准"><a href="#4-Repository-层-实现-Repository-标准" class="headerlink" title="4. Repository 层 实现 Repository 标准"></a>4. Repository 层 实现 Repository 标准</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Repository</span><br><span class="line">public interface AccountRepository extends JpaRepository&lt;Account,String&gt; &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="5-Repository-的继承关系"><a href="#5-Repository-的继承关系" class="headerlink" title="5.Repository 的继承关系"></a>5.Repository 的继承关系</h2><p><img alt data-src="https://pic1.superbed.cn/item/5ddd4baf8e0e2e3ee99f0395.png" class="lazyload"></p><ul><li>epository：空接口，表名任何继承它的均为仓库接口类</li><li>CrudRepository：继承Repository，实现了一组CRUD相关的方法</li><li>PagingAndSortingRepository：继承CrudRepository，实现了一组分页、排序相关的方法</li><li>JpaRepository：继承PagingAndSortRepository，实现一组JPA规范相关的方法<br>自定义的XxxRepository需要继承JpaRepository，这样该接口就具备了通用的数据访问控制层的能力。</li></ul><p><img alt data-src="https://pic1.superbed.cn/item/5ddd4baf8e0e2e3ee99f0393.png" class="lazyload"></p><h2 id="6-Repository的几种写法"><a href="#6-Repository的几种写法" class="headerlink" title="6.Repository的几种写法"></a>6.Repository的几种写法</h2><ul><li>自带的方法</li><li>简单命名拼凑</li><li>sql 拼接</li><li>hsql 的 拼接<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public interface UserRepository extends JpaRepository&lt;User,Integer&gt; &#123;</span><br><span class="line"></span><br><span class="line">// 1.通过简单的方法命名拼凑</span><br><span class="line">List&lt;User&gt; findUserByName(String name);</span><br><span class="line"></span><br><span class="line">// 2.使用query 使用sql + ? 操作</span><br><span class="line">@Query(value = &quot;select * from user where name = ?&quot;,nativeQuery = true)</span><br><span class="line">List&lt;User&gt; findUserBySql(String name);</span><br><span class="line"></span><br><span class="line">@Transactional</span><br><span class="line">@Modifying</span><br><span class="line">@Query(value = &quot;update user a set a.name=?1 where a.id= ?2&quot;,nativeQuery = true)</span><br><span class="line">int updateName(String name,Integer id);</span><br><span class="line"></span><br><span class="line">// 删除</span><br><span class="line">@Transactional</span><br><span class="line">@Modifying</span><br><span class="line">@Query(value = &quot;delete from user where id = ?1&quot;,nativeQuery = true)</span><br><span class="line">void deletIdBysql(Integer id);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 3. 使用 hsql 删除数据</span><br><span class="line">@Transactional</span><br><span class="line">@Modifying</span><br><span class="line">@Query(&quot;delete from User u where u.id = ?1&quot;)</span><br><span class="line">void deletId(Integer id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li>数据修改操作需要加上事务注解，保证数据的一致性</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java web </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hello world </tag>
+            
+            <tag> JPA </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>MyBatis基础知识点</title>
       <link href="/2019/11/25/MyBatis%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
       <url>/2019/11/25/MyBatis%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
@@ -23,8 +50,6 @@
             <tag> hello world </tag>
             
             <tag> MyBatis </tag>
-            
-            <tag> WEB </tag>
             
         </tags>
       
@@ -51,9 +76,9 @@
             
             <tag> hello world </tag>
             
-            <tag> WEB </tag>
-            
             <tag> SpringMVC </tag>
+            
+            <tag> WEB </tag>
             
         </tags>
       
@@ -79,8 +104,6 @@
         <tags>
             
             <tag> hello world </tag>
-            
-            <tag> WEB </tag>
             
             <tag> Spring </tag>
             
