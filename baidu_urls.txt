@@ -1,3 +1,4 @@
+http://kid1999.github.io/2021/07/12/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BRaft%E7%AE%97%E6%B3%95/
 http://kid1999.github.io/2021/07/07/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95%E4%B9%8BECDSA/
 http://kid1999.github.io/2021/07/06/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95%E4%B9%8BRSA/
 http://kid1999.github.io/2021/07/03/Fabric%E7%BD%91%E7%BB%9C%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B/
@@ -5,10 +6,10 @@ http://kid1999.github.io/2021/07/02/FabricCA%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3
 http://kid1999.github.io/2021/07/02/PKI%E7%9A%84%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3%E5%92%8C%E5%AE%9E%E7%8E%B0/
 http://kid1999.github.io/2021/06/26/Fabric%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6Go%E5%BC%80%E5%8F%91%E5%8C%85%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/
 http://kid1999.github.io/2021/06/24/Fabric%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/
-http://kid1999.github.io/2021/06/23/Fabric%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/
+http://kid1999.github.io/2021/06/23/Fabric%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/
 http://kid1999.github.io/2021/06/23/Fabric%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/
 http://kid1999.github.io/2021/06/23/Fabric%E6%B5%8B%E8%AF%95%E7%BD%91%E7%BB%9C%E6%90%AD%E5%BB%BA/
-http://kid1999.github.io/2021/06/21/Fabric%E5%9F%BA%E7%A1%80/
+http://kid1999.github.io/2021/06/21/Fabric%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/
 http://kid1999.github.io/2021/06/20/Solidity%E5%9F%BA%E7%A1%80/
 http://kid1999.github.io/2021/06/18/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%9F%BA%E7%A1%80/
 http://kid1999.github.io/2021/04/01/Electron-Vue%E8%81%94%E5%8A%A8%E5%BC%80%E5%8F%91/
