@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://kid1999.github.io/2021/07/23/Go%E5%90%8C%E6%AD%A5%E5%8E%9F%E8%AF%AD%E4%B8%8E%E9%94%81/</loc>
+    <lastmod>2021-07-23</lastmod>
+  </url>
+  <url>
+    <loc>http://kid1999.github.io/2021/07/23/Go-IO%E6%A0%87%E5%87%86%E5%BA%93/</loc>
+    <lastmod>2021-07-23</lastmod>
+  </url>
+  <url>
+    <loc>http://kid1999.github.io/2021/07/23/Go%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80%E5%AE%9E%E8%B7%B5/</loc>
+    <lastmod>2021-07-23</lastmod>
+  </url>
+  <url>
     <loc>http://kid1999.github.io/2021/07/21/MIT6-824-MapReduce%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2021-07-21</lastmod>
   </url>
