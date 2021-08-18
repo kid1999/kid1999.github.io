@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>CNN卷积神经网络 | Kid1999' Blog</title><meta name="description" content="CNN卷积神经网络"><meta name="keywords" content=""><meta name="author" content="kid1999"><meta name="copyright" content="kid1999"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="google-site-verification" content="google-site-verification=1QTg0QaNHFPMhpyEbi6sCIR6Po-bAsEjy0UCeBQ90Nc"><meta name="baidu-site-verification" content="code-STtYsRDbhz"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="CNN卷积神经网络"><meta name="twitter:description" content="CNN卷积神经网络"><meta name="twitter:image" content="https://ae01.alicdn.com/kf/H578cfe19a3854a09ae91991ec2f13f7ey.jpg"><meta property="og:type" content="article"><meta property="og:title" content="CNN卷积神经网络"><meta property="og:url" content="http://kid1999.github.io/2021/08/15/CNN%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><meta property="og:site_name" content="Kid1999' Blog"><meta property="og:description" content="CNN卷积神经网络"><meta property="og:image" content="https://ae01.alicdn.com/kf/H578cfe19a3854a09ae91991ec2f13f7ey.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://kid1999.github.io/2021/08/15/CNN%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><link rel="prev" title="人工神经网络" href="http://kid1999.github.io/2021/08/15/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><link rel="next" title="机器学习模型评价指标" href="http://kid1999.github.io/2021/08/13/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://kid1999.github.io","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight_copy: 'false',
+  highlight_lang: 'true',
+  highlight_shrink: 'false',
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  copyright: undefined,
+  copy_copyright_js: false,
+  ClickShowText: {"text":"富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善","fontSize":"15px"},
+  medium_zoom: 'false',
+  Snackbar: undefined
+  
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Kid1999' Blog</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">94</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">81</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#CNN%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">CNN卷积神经网络</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">常用数据集</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">自编码器</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9CCNN"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">卷积神经网络CNN</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#CNN%E6%A1%86%E6%9E%B6%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc_mobile_items-number">1.3.1.</span> <span class="toc_mobile_items-text">CNN框架整体架构</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E5%8D%B7%E7%A7%AF%E6%A0%B8"><span class="toc_mobile_items-number">1.3.2.</span> <span class="toc_mobile_items-text">卷积核</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E5%85%B1%E4%BA%AB%E6%9D%83%E9%87%8D"><span class="toc_mobile_items-number">1.3.3.</span> <span class="toc_mobile_items-text">共享权重</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E6%B1%A0%E5%8C%96%EF%BC%88%E4%BA%8C%E6%AC%A1%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%EF%BC%89"><span class="toc_mobile_items-number">1.3.4.</span> <span class="toc_mobile_items-text">池化（二次特征选择）</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E5%85%B7%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc_mobile_items-number">1.3.5.</span> <span class="toc_mobile_items-text">具体流程</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#AlexNet%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc_mobile_items-number">1.3.6.</span> <span class="toc_mobile_items-text">AlexNet的改进</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#VGGNet%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc_mobile_items-number">1.3.7.</span> <span class="toc_mobile_items-text">VGGNet的改进</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#GoogleNet%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc_mobile_items-number">1.3.8.</span> <span class="toc_mobile_items-text">GoogleNet的改进</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#ResNet%E6%AE%8B%E5%B7%AE%E7%BD%91%E7%BB%9C%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc_mobile_items-number">1.3.9.</span> <span class="toc_mobile_items-text">ResNet残差网络的改进</span></a></li></ol></li></ol></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CNN%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">1.</span> <span class="toc-text">CNN卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">1.1.</span> <span class="toc-text">常用数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">自编码器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9CCNN"><span class="toc-number">1.3.</span> <span class="toc-text">卷积神经网络CNN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CNN%E6%A1%86%E6%9E%B6%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">1.3.1.</span> <span class="toc-text">CNN框架整体架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B7%E7%A7%AF%E6%A0%B8"><span class="toc-number">1.3.2.</span> <span class="toc-text">卷积核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB%E6%9D%83%E9%87%8D"><span class="toc-number">1.3.3.</span> <span class="toc-text">共享权重</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%A0%E5%8C%96%EF%BC%88%E4%BA%8C%E6%AC%A1%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%EF%BC%89"><span class="toc-number">1.3.4.</span> <span class="toc-text">池化（二次特征选择）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.5.</span> <span class="toc-text">具体流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AlexNet%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">1.3.6.</span> <span class="toc-text">AlexNet的改进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VGGNet%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">1.3.7.</span> <span class="toc-text">VGGNet的改进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GoogleNet%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">1.3.8.</span> <span class="toc-text">GoogleNet的改进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ResNet%E6%AE%8B%E5%B7%AE%E7%BD%91%E7%BB%9C%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">1.3.9.</span> <span class="toc-text">ResNet残差网络的改进</span></a></li></ol></li></ol></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://ae01.alicdn.com/kf/H578cfe19a3854a09ae91991ec2f13f7ey.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">CNN卷积神经网络</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2021-08-15<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2021-08-15</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon" aria-hidden="true"></i><span>字数总计: </span><span class="word-count">1.4k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon" aria-hidden="true"></i><span>阅读时长: 4 分钟</span><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true">       </i><span>阅读量: </span><span id="busuanzi_value_page_pv"></span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="CNN卷积神经网络"><a href="#CNN卷积神经网络" class="headerlink" title="CNN卷积神经网络"></a>CNN卷积神经网络</h1><blockquote>
+<p>深度学习其实源于多层神经网络，最近几年的飞速发展让其逐渐演变出自己的特点。</p>
+<p>以CNN卷积神经网络为代表。</p>
+</blockquote>
+<h2 id="常用数据集"><a href="#常用数据集" class="headerlink" title="常用数据集"></a>常用数据集</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="http://yann.lecun.com/exdb/mnist/">MNIST 手写数字</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.image-net.org/download.php">ImageNet</a> </p>
+</li>
+</ul>
+<h2 id="自编码器"><a href="#自编码器" class="headerlink" title="自编码器"></a>自编码器</h2><blockquote>
+<p>部分解决部分神经网络参数初始化的问题。</p>
+</blockquote>
+<p><img alt="image-20210815110311925" data-src="https://i.loli.net/2021/08/15/hrZQjxCGAVc7Twg.png" class="lazyload"></p>
+<p>输入X，第一层的输出也为X，由此算出第一层的参数W，b。往后固定第一层参数不变，第二层输入为X1，假设第二层输出为X1，由此算出第二层的参数W，b。以此类推，求出每一层的参数。这样子算出来的参数保留了输入的特征，相当于是对特征在每一层进行特征压缩。</p>
+<h2 id="卷积神经网络CNN"><a href="#卷积神经网络CNN" class="headerlink" title="卷积神经网络CNN"></a>卷积神经网络CNN</h2><blockquote>
+<p>由手工设计卷积核，到自动设计卷积核。</p>
+<p>做各种变换时，本质是找一个卷积核对图像乘起来再加起来。</p>
+<p>卷积神经网络中“卷积”，是为了提取图像的特征，<strong>其实只借鉴了“加权求和”的特点</strong></p>
+</blockquote>
+<h3 id="CNN框架整体架构"><a href="#CNN框架整体架构" class="headerlink" title="CNN框架整体架构"></a>CNN框架整体架构</h3><p><img alt="img" data-src="https://img-blog.csdnimg.cn/20191217105106800.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FubmVRaVFp,size_16,color_FFFFFF,t_70" class="lazyload"></p>
+<p>大体包含两个部分，卷积层和全连接层。全连接层就是原来普通的多层神经网络，但是卷积层包含两个部分的嵌套（卷积、池化）。卷积是对元数据进行加权求和，池化是对卷积的结果进行特征选择，降低特征数量，并从而减少参数数量。</p>
+<h3 id="卷积核"><a href="#卷积核" class="headerlink" title="卷积核"></a>卷积核</h3><blockquote>
+<p>通过设置一个卷积核区域，通常比输入空间小。</p>
+</blockquote>
+<p><img alt="image-20210815114328905" data-src="https://i.loli.net/2021/08/15/kGblLyfY4qOdQjD.png" class="lazyload"></p>
+<p>通过移动卷积核的位置，与特征空间对应的位置进行加权求和，得到一个压缩后的特征图。</p>
+<p><img alt="image-20210815114515001" data-src="https://i.loli.net/2021/08/15/t3S9v1GMXPA6hwO.png" class="lazyload"></p>
+<p>如一个5x5的特征矩阵，若使用2x2大小的卷积核，并且设置步长为[1,1]，会产生一个4x4的特征图。</p>
+<p><img alt="image-20210815114913560" style="zoom:50%;" data-src="C:\Users\kid1999\AppData\Roaming\Typora\typora-user-images\image-20210815114913560.png" class="lazyload"></p>
+<p>同理若是设置步长为[2,2]，会产生一个2x2的特征图，但是会产生边缘部分未处理的问题。</p>
+<p>对于边界问题，我们可以采取<strong>补0（zero-padding）</strong>的做法，产生更大的特征图。</p>
+<p>总结其效果如下：</p>
+<p><img alt="image-20210815115235703" data-src="https://i.loli.net/2021/08/15/2MUdAriJ4vBZlp9.png" class="lazyload"></p>
+<h3 id="共享权重"><a href="#共享权重" class="headerlink" title="共享权重"></a>共享权重</h3><blockquote>
+<p>有了如上，我们知道卷积核是如何工作，下面我们需要与多重神经网络做类比，其本质是什么。</p>
+</blockquote>
+<p>上面的卷积操作，等价于如下的权值共享网络。</p>
+<p><img alt="image-20210815120819977" data-src="https://i.loli.net/2021/08/15/NrUwLsetxc2dJQY.png" class="lazyload"></p>
+<ol>
+<li><p>可以发现，此神经网络中某些输入是没有连接到所有的神经元上的，相当于其部分权重为0。（<strong>局部连接</strong>）</p>
+</li>
+<li><p>卷积层中每个神经元的<strong>共享权重</strong>W。其W的个数，取决于卷积核大大小，因为每个神经元(特征图中的一个结果)都是由同一个卷积核计算得到的。卷积核在这里充当了一个参数块的作用。</p>
+</li>
+</ol>
+<h3 id="池化（二次特征选择）"><a href="#池化（二次特征选择）" class="headerlink" title="池化（二次特征选择）"></a>池化（二次特征选择）</h3><blockquote>
+<p> 池化层（pooling layer)也叫做子采样层（subsampling layer），其作用是进行特征选择，降低特征数量，并从而减少参数数量。</p>
+</blockquote>
+<p><strong>为什么conv-layer之后需要加pooling_layer?</strong></p>
+<p>卷积层【局部连接和权重共享】虽然可以显著减少网络中连接的数量，但特征映射组中的神经元个数并没有显著减少。如果后面接一个分类器，分类器的输入维数依然很高，很容易过拟合。为了解决这个问题，可以再卷积层之后加上一个pooling layer，从而降低特征维数，避免过拟合。</p>
+<p><img alt="img" data-src="https://img-blog.csdnimg.cn/20191217135504527.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FubmVRaVFp,size_16,color_FFFFFF,t_70" class="lazyload"></p>
+<p>Pooling是指对每个区域进行下采样（Down Sampling）得到一个子特征图，作为这个区域的概括。常用的pooling 函数有两种：</p>
+<p>1）最大池化（Max Pooling）：一般是取一个区域内所有神经元的最大值。</p>
+<p>2）平均池化（Mean Pooling）：一般是取区域内所有神经元的平均值。</p>
+<h3 id="具体流程"><a href="#具体流程" class="headerlink" title="具体流程"></a>具体流程</h3><blockquote>
+<p>以 <strong>LeNet-5</strong>处理手写数字图片为例。</p>
+</blockquote>
+<ul>
+<li>卷积层：第一层选用6个5x5x1的卷积核，步长为1，去处理32x32x1的图像，得到28x28x6的特征图（注意每次卷积后，都需要经过激活函数，将结果非线性化处理）</li>
+<li>卷积层：第二层（池化层）对28x28x6的特征图，使用2x2映射到1一个点，得到一个14x14x6的子选样特征图。（反向传播时，将该点的参数，映射回上一层的4个点即可。）我们也称这一个映射后的点的<strong>感受野</strong>是4。</li>
+<li>卷积层：第三层选用16个5x5x6的卷积核，步长为1，去处理14x14x6的图像，得到10x10x16的特征图</li>
+<li>卷积层：第四层（池化层）对10x10x16的特征图，使用2x2映射到1一个点，得到一个5x5x16的子选样特征图。</li>
+<li>全连接层：后续操作就和普通的多层神经网络一样了，只是分类问题的目标函数，我们通常不用均方误差函数。而是使用softmax函数和交叉熵。</li>
+</ul>
+<p><img alt="image-20210815153243086" data-src="https://i.loli.net/2021/08/15/axN2WnfPkgZEe6Y.png" class="lazyload"></p>
+<p>可以发现，整个网络的速度取决于卷积层，整个网络的参数个数取决于全连接层。</p>
+<h3 id="AlexNet的改进"><a href="#AlexNet的改进" class="headerlink" title="AlexNet的改进"></a>AlexNet的改进</h3><p><img alt="image-20210815171816281" data-src="https://i.loli.net/2021/08/15/pWqSNdoz5gl1TFu.png" class="lazyload"></p>
+<p> （2）使用Max pooling代替mean pooling。</p>
+<p>​    <img alt="image-20210815171935048" data-src="https://i.loli.net/2021/08/15/Yes4MEQfHC1oLRI.png" class="lazyload"></p>
+<p><img alt="image-20210815170738702" data-src="https://i.loli.net/2021/08/15/XW7PuAMG2Tnp6K3.png" class="lazyload"></p>
+<p>（5）选用最新的GPU进行计算</p>
+<h3 id="VGGNet的改进"><a href="#VGGNet的改进" class="headerlink" title="VGGNet的改进"></a>VGGNet的改进</h3><p>将池化层进行叠加，多个池化层进行叠加，导致池化层的结果感受野更大。</p>
+<h3 id="GoogleNet的改进"><a href="#GoogleNet的改进" class="headerlink" title="GoogleNet的改进"></a>GoogleNet的改进</h3><p>对channel进行加权，将一堆卷积核大小为（1x1x上一层输出的channel）、（3x3）、（5x5）的Inception（小卷积核）结构来代替大的卷积核。达到增加感受野、减少参数的效果。</p>
+<h3 id="ResNet残差网络的改进"><a href="#ResNet残差网络的改进" class="headerlink" title="ResNet残差网络的改进"></a>ResNet残差网络的改进</h3><p><img alt="image-20210815180715183" data-src="https://i.loli.net/2021/08/15/UMHa8ksVdGxhoB4.png" class="lazyload"></p>
+<p>将前面层的结果直接加到后面层，经试验表明，效果会更好。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kid1999</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://kid1999.github.io/2021/08/15/CNN%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">http://kid1999.github.io/2021/08/15/CNN%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://kid1999.github.io">Kid1999' Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://ae01.alicdn.com/kf/H578cfe19a3854a09ae91991ec2f13f7ey.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button"><i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png"><div class="post-qr-code__desc">微信</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2021/08/15/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><img class="prev_cover lazyload" data-src="https://puui.qpic.cn/fans_admin/0/3_1680187318_1573908333220/0" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>人工神经网络</span></div></a></div><div class="next-post pull_right"><a href="/2021/08/13/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/"><img class="next_cover lazyload" data-src="https://pic.superbed.cn/item/5dcfef6a8e0e2e3ee97c7abf.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>机器学习模型评价指标</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: 'eac7c03188ca8d110797',
+  clientSecret: '42d63112bb6209d8bf965ae1838947e98eb6f557',
+  repo: 'kid1999.github.io',
+  owner: 'kid1999',
+  admin: 'kid1999',
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN'
+})
+gitalk.render('gitalk-container')</script></div></div></div><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By kid1999</div><div class="framework-info"><span>驱动 </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script async src="/js/search/local-search.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/baidupush.js"> </script><script src="/js/tw_cn.js"></script><script>translateInitilization()
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><script src="/js/third-party/ClickShowText.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
