@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>GAN基础理解 | Kid1999' Blog</title><meta name="description" content="GAN基础理解"><meta name="keywords" content=""><meta name="author" content="kid1999"><meta name="copyright" content="kid1999"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="google-site-verification" content="google-site-verification=1QTg0QaNHFPMhpyEbi6sCIR6Po-bAsEjy0UCeBQ90Nc"><meta name="baidu-site-verification" content="code-STtYsRDbhz"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="GAN基础理解"><meta name="twitter:description" content="GAN基础理解"><meta name="twitter:image" content="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg"><meta property="og:type" content="article"><meta property="og:title" content="GAN基础理解"><meta property="og:url" content="http://kid1999.github.io/2021/08/20/GAN%E5%9F%BA%E7%A1%80%E7%90%86%E8%A7%A3/"><meta property="og:site_name" content="Kid1999' Blog"><meta property="og:description" content="GAN基础理解"><meta property="og:image" content="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://kid1999.github.io/2021/08/20/GAN%E5%9F%BA%E7%A1%80%E7%90%86%E8%A7%A3/"><link rel="next" title="Transformer" href="http://kid1999.github.io/2021/08/19/Transformer/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://kid1999.github.io","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight_copy: 'false',
+  highlight_lang: 'true',
+  highlight_shrink: 'false',
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  copyright: undefined,
+  copy_copyright_js: false,
+  ClickShowText: {"text":"富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善","fontSize":"15px"},
+  medium_zoom: 'false',
+  Snackbar: undefined
+  
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Kid1999' Blog</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">96</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">81</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#GAN%E5%9F%BA%E7%A1%80%E7%90%86%E8%A7%A3"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">GAN基础理解</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#GAN%E4%BB%8B%E7%BB%8D"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">GAN介绍</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E7%94%9F%E6%88%90%E7%BD%91%E7%BB%9C"><span class="toc_mobile_items-number">1.1.1.</span> <span class="toc_mobile_items-text">生成网络</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#GAN%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc_mobile_items-number">1.1.2.</span> <span class="toc_mobile_items-text">GAN的分类</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#GAN%E7%9A%84%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="toc_mobile_items-number">1.1.3.</span> <span class="toc_mobile_items-text">GAN的运行流程</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#unconditional-generation"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">unconditional generation</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E7%AE%97%E6%B3%95%E7%BB%86%E8%8A%82"><span class="toc_mobile_items-number">1.2.1.</span> <span class="toc_mobile_items-text">算法细节</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E7%AE%97%E6%B3%95%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="toc_mobile_items-number">1.2.2.</span> <span class="toc_mobile_items-text">算法的目标</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Discriminator"><span class="toc_mobile_items-number">1.2.3.</span> <span class="toc_mobile_items-text">Discriminator</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Tips-for-GAN"><span class="toc_mobile_items-number">1.2.4.</span> <span class="toc_mobile_items-text">Tips for GAN</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Wasserstein-Distance"><span class="toc_mobile_items-number">1.2.4.1.</span> <span class="toc_mobile_items-text">Wasserstein Distance</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#WGAN"><span class="toc_mobile_items-number">1.2.5.</span> <span class="toc_mobile_items-text">WGAN</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Evaluation-of-Generation-%E8%AF%84%E4%BC%B0"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">Evaluation of Generation 评估</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Diversity-Mode-Collapse"><span class="toc_mobile_items-number">1.3.0.1.</span> <span class="toc_mobile_items-text">Diversity - Mode Collapse</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Diversity-Mode-Dropping"><span class="toc_mobile_items-number">1.3.0.2.</span> <span class="toc_mobile_items-text">Diversity - Mode Dropping</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#memory-GAN"><span class="toc_mobile_items-number">1.3.0.3.</span> <span class="toc_mobile_items-text">memory GAN</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Conditional-Generation"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">Conditional Generation</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Learning-from-Unpaired-Data"><span class="toc_mobile_items-number">1.5.</span> <span class="toc_mobile_items-text">Learning from Unpaired Data</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Cycle-GAN"><span class="toc_mobile_items-number">1.5.1.</span> <span class="toc_mobile_items-text">Cycle GAN</span></a></li></ol></li></ol></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#GAN%E5%9F%BA%E7%A1%80%E7%90%86%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">GAN基础理解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#GAN%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">GAN介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E7%BD%91%E7%BB%9C"><span class="toc-number">1.1.1.</span> <span class="toc-text">生成网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GAN%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.1.2.</span> <span class="toc-text">GAN的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GAN%E7%9A%84%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.3.</span> <span class="toc-text">GAN的运行流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unconditional-generation"><span class="toc-number">1.2.</span> <span class="toc-text">unconditional generation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E7%BB%86%E8%8A%82"><span class="toc-number">1.2.1.</span> <span class="toc-text">算法细节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="toc-number">1.2.2.</span> <span class="toc-text">算法的目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Discriminator"><span class="toc-number">1.2.3.</span> <span class="toc-text">Discriminator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tips-for-GAN"><span class="toc-number">1.2.4.</span> <span class="toc-text">Tips for GAN</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Wasserstein-Distance"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">Wasserstein Distance</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WGAN"><span class="toc-number">1.2.5.</span> <span class="toc-text">WGAN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Evaluation-of-Generation-%E8%AF%84%E4%BC%B0"><span class="toc-number">1.3.</span> <span class="toc-text">Evaluation of Generation 评估</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Diversity-Mode-Collapse"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">Diversity - Mode Collapse</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Diversity-Mode-Dropping"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">Diversity - Mode Dropping</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#memory-GAN"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">memory GAN</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conditional-Generation"><span class="toc-number">1.4.</span> <span class="toc-text">Conditional Generation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Learning-from-Unpaired-Data"><span class="toc-number">1.5.</span> <span class="toc-text">Learning from Unpaired Data</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cycle-GAN"><span class="toc-number">1.5.1.</span> <span class="toc-text">Cycle GAN</span></a></li></ol></li></ol></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">GAN基础理解</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2021-08-20<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2021-08-20</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon" aria-hidden="true"></i><span>字数总计: </span><span class="word-count">2.4k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon" aria-hidden="true"></i><span>阅读时长: 8 分钟</span><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true">       </i><span>阅读量: </span><span id="busuanzi_value_page_pv"></span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="GAN基础理解"><a href="#GAN基础理解" class="headerlink" title="GAN基础理解"></a>GAN基础理解</h1><blockquote>
+<p><strong>生成对抗网络</strong>（Generative Adversarial Network，简称GAN）,是非监督式学习的一种方法，通过让两个神经网络相互博弈的方式进行学习。</p>
+</blockquote>
+<h2 id="GAN介绍"><a href="#GAN介绍" class="headerlink" title="GAN介绍"></a>GAN介绍</h2><h3 id="生成网络"><a href="#生成网络" class="headerlink" title="生成网络"></a>生成网络</h3><p>生成网络做的事不同于之前的network，都是<strong>一个function,你给他一个X就可以输出一个Y</strong>。</p>
+<p>生成网络做的事实际上不是输入一个X输出一个Y，而是给定一个随机的启发的点（distribution sample）加上或者不加上X 最终输出一个分布（distribution）。</p>
+<p><img alt="image-20210514101010215" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210514101010215.png" class="lazyload"></p>
+<p>那这种<strong>可以输出,一个distribution的network,我们就叫它generator</strong></p>
+<h3 id="GAN的分类"><a href="#GAN的分类" class="headerlink" title="GAN的分类"></a>GAN的分类</h3><blockquote>
+<p>GAN细的分类有很多，此处以结构进行划分。</p>
+</blockquote>
+<ul>
+<li>unconditional generation，不输入X，只输入一个 distribution sample 生成 y。</li>
+</ul>
+<p><img alt="image-20210514141213358" style="zoom: 50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210514141213358.png" class="lazyload"></p>
+<ul>
+<li>conditional generation，给定一个 Condition x,让它根据 x 跟 z 来產生 y。</li>
+</ul>
+<p><img alt="image-20210520162536362" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210520162536362.png" class="lazyload"></p>
+<ul>
+<li>unsupervised Learning，如Cycle GAN，X跟Y是不成对（unlabeled）的数据，只给X要求生成Y，且没有Y的label。</li>
+</ul>
+<p><img alt="image-20210524140340298" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210524140340298.png" class="lazyload"></p>
+<h3 id="GAN的运行流程"><a href="#GAN的运行流程" class="headerlink" title="GAN的运行流程"></a>GAN的运行流程</h3><blockquote>
+<p>其流程类似生命演化过程。</p>
+</blockquote>
+<p><img alt="image-20210514150713503" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210514150713503.png" class="lazyload"></p>
+<p>GAN由两部分组成：generator 和 discriminator。</p>
+<p><strong>generator</strong> 负责根据输入生成输出结果。</p>
+<p><strong>discriminator</strong> 负责衡量generator输出的效果。</p>
+<ul>
+<li>第一次generator从一个随机的输入中生成一些奇怪的东西。discriminator就会学习区分generator输出跟真正的图片的不同。</li>
+<li>generator调整其参数，进化后再次输出一些结果，试图骗过discriminator。但是<strong>discriminator也是会进化的</strong>，它会试图分辨这一组图片,跟真实图片之间的差异。</li>
+<li>如此循环往复，二者既是竞争也是合作关系。</li>
+</ul>
+<p>discriminator、generator的架构师自己设计的。用CNN、Transfermer都行。</p>
+<h2 id="unconditional-generation"><a href="#unconditional-generation" class="headerlink" title="unconditional generation"></a>unconditional generation</h2><blockquote>
+<p>以让机器生成二次元人物的脸为例。</p>
+</blockquote>
+<p>首先 Z 是一个从一个normal distribution里sample出来的向量，通常会是一个<strong>low-dimensional</strong>的向量，其维度自定义。</p>
+<p>而生成的 y 是一个高纬度的向量，从这个向量再输出成图片。</p>
+<p><img alt="image-20210514141653002" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210514141653002.png" class="lazyload"></p>
+<p><strong>补充说明</strong>：不同的distribution之间的差异,可能并没有真的非常大，只要够简单，generator会想办法,把这个简单的distribution,对应到一个复杂的distribution。</p>
+<h3 id="算法细节"><a href="#算法细节" class="headerlink" title="算法细节"></a>算法细节</h3><blockquote>
+<p>generator跟discriminator,他们就是两个network。</p>
+</blockquote>
+<p><strong>初始化 generator跟discriminator的参数</strong></p>
+<p><strong>第一步</strong>是,<strong>定住你的generator,只train你的discriminator</strong></p>
+<p><img alt="image-20210514153526036" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210514153526036.png" class="lazyload"></p>
+<p>接下来<strong>定住discriminator改成训练generator</strong></p>
+<p><img alt="image-20210514155446050" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210514155446050.png" class="lazyload"></p>
+<p>接下来就是<strong>反复的训练</strong>。</p>
+<h3 id="算法的目标"><a href="#算法的目标" class="headerlink" title="算法的目标"></a>算法的目标</h3><blockquote>
+<p>在生成的问题里面，我们要min、max的到底是什么？</p>
+<p>我们想要 <strong>Minimize</strong> 的东西是这个样子的，我们有一个 Generator</p>
+<ul>
+<li>给它一大堆的 Vector,给它从 Normal Distribution Sample 出来的东西</li>
+<li>丢进这个 Generator 以后,会產生一个比较复杂的 Distribution,这个复杂 Distribution,我们叫它 <strong>PG</strong></li>
+<li>然后 我们有一堆的 Data,这个是真正的 Data,真正的 Data 也形成了另外一个 Distribution,叫做 <strong>Pdata</strong></li>
+<li>我们期待 <strong>PG 跟 Pdata 越接近越好</strong></li>
+</ul>
+</blockquote>
+<p><img alt="image-20210516190051672" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210516190051672.png" class="lazyload"></p>
+<p>我们衡量两个 Distribution 之间的某种距离。</p>
+<p><img alt="image-20210516190555803" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210516190555803.png" class="lazyload"></p>
+<p>Div Of PG 跟 Pdata,它指的意思就是 PG 跟 Pdata,这两个 Distribution 之间的 <strong>Divergence(散度)</strong></p>
+<p>Divergence 这边指的意思就是,这两个你可以想成是,这<strong>两个 Distribution 之间的某种距离</strong></p>
+<ul>
+<li>如果这个 <strong>Divergence 越大</strong>,就代表这<strong>两个 Distribution 越不像</strong></li>
+<li><strong>Divergence 越小</strong>,就代表这两个 <strong>Distribution 越相近</strong></li>
+</ul>
+<p>有了这个衡量标准以后，我们现在的目标,是要去<strong>找一个 Generator</strong>,调整其参数使其产生的 PG 跟 Pdata 之间的 Divergence 越小越好。</p>
+<p>如何计算Divergence是个很困难的问题。</p>
+<p>但是GAN说只要能从PG和Pdata里sample出东西就能计算Divergence。</p>
+<ul>
+<li><p>把你的图库拿出来,从图库裡面随机產生,随机 Sample 一些图片出来,你就得到 <strong>Pdata</strong></p>
+</li>
+<li><p>从 Normal Distribution(正态分布) Sample 出来的 Vector,丢到 Generator 裡面，生成的就<strong>PG</strong></p>
+</li>
+</ul>
+<h3 id="Discriminator"><a href="#Discriminator" class="headerlink" title="Discriminator"></a>Discriminator</h3><blockquote>
+<p>在GAN里面,一个特别的地方就是,除了generator以外,我们要多训练一个东西,叫做discriminator。</p>
+<p>discriminator它的作用是,它会拿一张图片作為输入,它的输出是一个数值scalar，<strong>scalar越大</strong>就代表说,现在输入的这张图片,<strong>越像是真实的二次元人物的图像</strong>。</p>
+<p><strong>Discriminator 就是一个function</strong></p>
+</blockquote>
+<p><img alt="image-20210514142817844" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210514142817844.png" class="lazyload"></p>
+<p>训练一个 Discriminator,它的训练的目标是</p>
+<ul>
+<li>看到 <strong>Real Data</strong>,就给它比较<strong>高的分数</strong></li>
+<li>看到这个 <strong>Generative 的 Data</strong>,就给它比较<strong>低的分数</strong></li>
+</ul>
+<p>实际就是一个<strong>Optimization </strong>问题。</p>
+<p><img alt="image-20210517110317766" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210517110317766.png" class="lazyload"></p>
+<p>我们希望这个 <strong>Objective Function V越大越好</strong></p>
+<p><img alt="image-20210517112608814" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210517112608814.png" class="lazyload"></p>
+<ul>
+<li>意味著我们希望这边的 D (Y) 越大越好,我们希望 Y 如果是从 <strong>Pdata Sample 出来的</strong>,它就要<strong>越大越好</strong></li>
+<li>我们希望说如果 Y 是从,这个 <strong>PG Sample 出来的</strong>,它就要<strong>越小越好</strong></li>
+</ul>
+<p>但，<strong>PG 跟 Pdata 很像</strong>，很难分开，<strong>PG与Pdata越像Divergence 就越小</strong>。</p>
+<p><img alt="image-20210517145950583" style="zoom: 50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210517145950583.png" class="lazyload"></p>
+<p>所以我们说我们本来的目标是要找一个 Generator,去 Minimize PG 跟 Pdata 的 Divergence</p>
+<p><img alt="image-20210517150917682" style="zoom: 50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210517150917682.png" class="lazyload"></p>
+<p>我们只要训练一个 Discriminator,训练完以后,这个 Objective Function 的最大值,就是这个 Divergence,就跟这个 Divergence 有关</p>
+<p><img alt="image-20210517152330770" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210517152330770.png" class="lazyload"></p>
+<ul>
+<li>我们的目标是要最小的Divergence，也就是PG与Pdata越相似。</li>
+</ul>
+<p>当然除了此处用的 JS divergence以外，还有很多其他的divergence衡量算法。</p>
+<p>尽管有了 JS divergence算法，但是GAN依然很那Train起来。</p>
+<h3 id="Tips-for-GAN"><a href="#Tips-for-GAN" class="headerlink" title="Tips for GAN"></a>Tips for GAN</h3><blockquote>
+<p> 首先 JS Divergence 有个特性,是<strong>两个没有重叠的分布,JS Divergence 算出来,就永远都是 Log2</strong>，而GAN里面大部分都是没有重叠。所以JS Divergence并不太适用于GAN中。</p>
+</blockquote>
+<h4 id="Wasserstein-Distance"><a href="#Wasserstein-Distance" class="headerlink" title="Wasserstein Distance"></a>Wasserstein Distance</h4><p>Wasserstein Distance 的想法是这个样子,假设你有两个 Distribution,一个 Distribution 我们叫它 P,另外一个 Distribution 我们叫它 Q</p>
+<p>Wasserstein Distance 它计算的方法,就是想像你在开一台推土机</p>
+<p><img alt="image-20210517165125486" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210517165125486.png" class="lazyload"></p>
+<p>推土机<strong>把 P 这边的土,挪到 Q 所移动的平均距离</strong>,就是 <strong>Wasserstein Distance</strong></p>
+<p>BUT,如果是<strong>更复杂的 Distribution</strong>,你要算 <strong>Wasserstein Distance,就有点困难</strong>了。</p>
+<p><img alt="image-20210517203203579" style="zoom: 50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210517203203579.png" class="lazyload"></p>
+<p><strong>把 P重新塑造成 Q</strong> 的<strong>方法有无穷多种</strong>,用<strong>不同的 Moving Plan</strong>,你<strong>推土机平均走的距离就不一样</strong></p>
+<p>只有穷举所有可能的moving plans，才能算出让平均的距离最小值：Wasserstein Distance。</p>
+<p>但如果不执意于一次性将土推平，每次都<strong>稍微把 PG 往 Pdata 挪近一点</strong>，W Distance 就会有变化，也能起到相似的作用。</p>
+<h3 id="WGAN"><a href="#WGAN" class="headerlink" title="WGAN"></a>WGAN</h3><blockquote>
+<p>当你用 Wasserstein Distance,来取代 JS Divergence 的时候,这个 GAN 就叫做 WGAN</p>
+</blockquote>
+<p><strong>Wasserstein Distance 怎麼算</strong></p>
+<p><img alt="image-20210517213324131" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210517213324131.png" class="lazyload"></p>
+<ul>
+<li>y 如果是从 Pdata 来的,那我们要计算它的 D(y) 的<strong>期望值</strong></li>
+<li>y 如果是从 PG 来的,我们计算它的 D(y) 的<strong>期望值</strong>,但是<strong>前面乘上一个负号</strong></li>
+</ul>
+<p>所以如果你要 Maximum,这个 Objective Function,你会达成这样的效果，</p>
+<ul>
+<li>如果 y是从 <strong>Pdata</strong> Sample 出来的,D(y),就 Discriminator 的 Output 要<strong>越大越好</strong></li>
+<li>如果 X 是从 <strong>PG</strong>,从 Generator Sample 出来的,那 D(y),也就 Discriminator 的 Output,应该要<strong>越小越好</strong></li>
+</ul>
+<p><img alt="image-20210517213552789" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210517213552789.png" class="lazyload"></p>
+<p>但是这边<strong>还有另外一个限制</strong>,它不是光大括号裡面的值变大就好,还有一个限制是,<strong>D 不能够是一个随便的 Function</strong>,D必须要是一个 1-Lipschitz 的 Function（<strong>D 必须要是一个足够平滑的 Function</strong>）</p>
+<h2 id="Evaluation-of-Generation-评估"><a href="#Evaluation-of-Generation-评估" class="headerlink" title="Evaluation of Generation 评估"></a>Evaluation of Generation 评估</h2><blockquote>
+<p>评估一个 Generator 的好坏,并没有那麼容易，最直观就是请人来看。但是并不稳定客观。</p>
+</blockquote>
+<p><strong>把你的 GAN 產生出来的图片,丢到一个的影像的分类系统裡面</strong>，让AI为AI评分….</p>
+<p><img alt="image-20210519162401379" style="zoom: 67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210519162401379.png" class="lazyload"></p>
+<p><strong>对于单张照片</strong>，这个机率的<strong>分布如果越集中</strong>,就代表说现在產生的<strong>图片可能越好</strong>。</p>
+<h4 id="Diversity-Mode-Collapse"><a href="#Diversity-Mode-Collapse" class="headerlink" title="Diversity - Mode Collapse"></a>Diversity - Mode Collapse</h4><p>就是说，你的模型来来回回就出那几张照片，这问题比较难处理。</p>
+<h4 id="Diversity-Mode-Dropping"><a href="#Diversity-Mode-Dropping" class="headerlink" title="Diversity - Mode Dropping"></a>Diversity - Mode Dropping</h4><p>你的產生出来的资料,可能只有真实资料的一部分。</p>
+<p><strong>评估方法</strong></p>
+<p>过去有一样是<strong>藉助我们的 Image Classifier</strong>,你就把一堆图片,就很像你的 Generator 產生 1000 张图片,把这 1000 张图片裡,都丢到 Image Classify 裡面,<strong>看它被判断成哪一个 Class</strong></p>
+<p><img alt="image-20210519204240918" style="zoom: 67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210519204240918.png" class="lazyload"></p>
+<p><strong>把所有的 Distribution 平均起来</strong>,如果平均的 <strong>Distribution 非常集中</strong>,就代表现在<strong>多样性不够</strong>。如果<strong>平均完</strong>后的结果是<strong>非常平坦</strong>的,那代表说你的<strong>多样性是足够的</strong>。</p>
+<h4 id="memory-GAN"><a href="#memory-GAN" class="headerlink" title="memory GAN"></a>memory GAN</h4><p>GAN会记忆一些训练资料的问题，但是我们希望GAN更有创造性一些。</p>
+<h2 id="Conditional-Generation"><a href="#Conditional-Generation" class="headerlink" title="Conditional Generation"></a>Conditional Generation</h2><blockquote>
+<p> 我们可以操控 Generator 的输出,我们给它一个 Condition x,让它根据 x 跟 z 来產生 y,那这样的 Conditional Generation</p>
+</blockquote>
+<p><img alt="image-20210520162536362" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210520162536362.png" class="lazyload"></p>
+<p>比如输入文字描述生成相应的图片。</p>
+<p><img alt="image-20210520164728663" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210520164728663.png" class="lazyload"></p>
+<p>在 Conditional GAN 裡面,你要做有点不一样的设计,你的 <strong>Discriminator 不是只吃图片 y</strong>,它<strong>还要吃 Condition x</strong></p>
+<p><strong>光图片好,Discriminator 还是不会给高分</strong></p>
+<p><strong>一方面图片要好</strong>,另外一方面,这个<strong>图片跟文字的叙述必须要是相配</strong>的,Discriminator 才会给高分。</p>
+<h2 id="Learning-from-Unpaired-Data"><a href="#Learning-from-Unpaired-Data" class="headerlink" title="Learning from Unpaired Data"></a>Learning from Unpaired Data</h2><blockquote>
+<p><strong>X跟Y是不成对</strong>的时候，我们依然可以使用GAN。</p>
+</blockquote>
+<p>比如输入真人头像输出动漫头像。</p>
+<p><img alt="image-20210524140340298" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210524140340298.png" class="lazyload"></p>
+<h3 id="Cycle-GAN"><a href="#Cycle-GAN" class="headerlink" title="Cycle GAN"></a>Cycle GAN</h3><blockquote>
+<p>在Cycle GAN裡面,我们会train<strong>两个generator</strong></p>
+</blockquote>
+<ul>
+<li>第一个generator它的工作是,把X domain的图变成Y domain的图</li>
+<li>第二个generator它的工作是,看到一张Y domain的图,把它<strong>还原</strong>回X domain的图</li>
+</ul>
+<p><img alt="image-20210524143232414" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210524143232414.png" class="lazyload"></p>
+<p>使得经过两次转换以后,<strong>输入跟输出要越接近越好</strong>。</p>
+<p>我们有<strong>三个Network</strong></p>
+<ol>
+<li>第一个generator,它的工作是把X转成Y</li>
+<li>第二个generator,它的工作是要把Y还原回原来的X</li>
+<li>那这个discriminator,它的工作仍然是要看,蓝色的这个generator它的输出,像不像是Y domain的图</li>
+</ol>
+<p><strong>也就是除了保证输入与输出之间的关联性的同时追求对生成任务完成。</strong></p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Wv411h7kN?p=34">https://www.bilibili.com/video/BV1Wv411h7kN?p=34</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/unclestrong/DeepLearning_LHY21_Notes">https://github.com/unclestrong/DeepLearning_LHY21_Notes</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kid1999</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://kid1999.github.io/2021/08/20/GAN%E5%9F%BA%E7%A1%80%E7%90%86%E8%A7%A3/">http://kid1999.github.io/2021/08/20/GAN%E5%9F%BA%E7%A1%80%E7%90%86%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://kid1999.github.io">Kid1999' Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button"><i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png"><div class="post-qr-code__desc">微信</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2021/08/19/Transformer/"><img class="next_cover lazyload" data-src="https://pic.superbed.cn/item/5dcfef6a8e0e2e3ee97c7abf.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>Transformer</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: 'eac7c03188ca8d110797',
+  clientSecret: '42d63112bb6209d8bf965ae1838947e98eb6f557',
+  repo: 'kid1999.github.io',
+  owner: 'kid1999',
+  admin: 'kid1999',
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN'
+})
+gitalk.render('gitalk-container')</script></div></div></div><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By kid1999</div><div class="framework-info"><span>驱动 </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script async src="/js/search/local-search.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/baidupush.js"> </script><script src="/js/tw_cn.js"></script><script>translateInitilization()
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><script src="/js/third-party/ClickShowText.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
