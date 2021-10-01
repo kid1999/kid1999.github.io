@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://kid1999.github.io/2021/10/01/Fabric-SDK-GO%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</loc>
+    <lastmod>2021-10-01</lastmod>
+  </url>
+  <url>
     <loc>http://kid1999.github.io/2021/09/30/Fabric-CA%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E7%AE%80%E6%9E%90/</loc>
     <lastmod>2021-09-30</lastmod>
   </url>
