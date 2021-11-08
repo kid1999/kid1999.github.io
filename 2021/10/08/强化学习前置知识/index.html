@@ -1,78 +1,156 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>强化学习前置知识 | Kid1999' Blog</title><meta name="description" content="强化学习前置知识"><meta name="keywords" content=""><meta name="author" content="kid1999"><meta name="copyright" content="kid1999"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="google-site-verification" content="google-site-verification=1QTg0QaNHFPMhpyEbi6sCIR6Po-bAsEjy0UCeBQ90Nc"><meta name="baidu-site-verification" content="code-STtYsRDbhz"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="强化学习前置知识"><meta name="twitter:description" content="强化学习前置知识"><meta name="twitter:image" content="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg"><meta property="og:type" content="article"><meta property="og:title" content="强化学习前置知识"><meta property="og:url" content="http://kid1999.github.io/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/"><meta property="og:site_name" content="Kid1999' Blog"><meta property="og:description" content="强化学习前置知识"><meta property="og:image" content="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
-var t = Cookies.get("theme");
-if (autoChangeMode == '1'){
-const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
-const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
-const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
-
-if (t === undefined){
-  if (isLightMode) activateLightMode()
-  else if (isDarkMode) activateDarkMode()
-  else if (isNotSpecified || hasNoSupport){
-    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
-    now = new Date();
-    hour = now.getHours();
-    isNight = hour < 6 || hour >= 18
-    isNight ? activateDarkMode() : activateLightMode()
-}
-} else if (t == 'light') activateLightMode()
-else activateDarkMode()
-
-
-} else if (autoChangeMode == '2'){
-  now = new Date();
-  hour = now.getHours();
-  isNight = hour < 6 || hour >= 18
-  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
-  else if (t === 'light') activateLightMode()
-  else activateDarkMode() 
-} else {
-  if ( t == 'dark' ) activateDarkMode()
-  else if ( t == 'light') activateLightMode()
-}
-
-function activateDarkMode(){
-  document.documentElement.setAttribute('data-theme', 'dark')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
-  }
-}
-function activateLightMode(){
-  document.documentElement.setAttribute('data-theme', 'light')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
-  }
-}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://kid1999.github.io/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/"><link rel="prev" title="强化学习之策略学习" href="http://kid1999.github.io/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/"><link rel="next" title="强化学习之价值学习" href="http://kid1999.github.io/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>强化学习前置知识 | Kid1999' Blog</title><meta name="author" content="kid1999"><meta name="copyright" content="kid1999"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="强化学习前置知识 深度强化学习（Deep Reinforcement Learning）基础部分。  目录 基本概念 马尔可夫决策过程 蒙特卡洛  基本概念一些数学基础 随机变量 概率密度函数 期望 随机抽样 蒙特卡洛（采样越多，越近似最优解；尽量找好的，但不保证是最好的。）  一些机器学习基础 线性模型 神经网络 反向传播和梯度下降  一些基础名词 马尔可夫决策过程 马尔科夫决策过程（Marko">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强化学习前置知识">
+<meta property="og:url" content="http://kid1999.github.io/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="Kid1999&#39; Blog">
+<meta property="og:description" content="强化学习前置知识 深度强化学习（Deep Reinforcement Learning）基础部分。  目录 基本概念 马尔可夫决策过程 蒙特卡洛  基本概念一些数学基础 随机变量 概率密度函数 期望 随机抽样 蒙特卡洛（采样越多，越近似最优解；尽量找好的，但不保证是最好的。）  一些机器学习基础 线性模型 神经网络 反向传播和梯度下降  一些基础名词 马尔可夫决策过程 马尔科夫决策过程（Marko">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.isoyu.com/bing_images.php">
+<meta property="article:published_time" content="2021-10-08T04:12:50.000Z">
+<meta property="article:modified_time" content="2021-10-08T04:12:50.000Z">
+<meta property="article:author" content="kid1999">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.isoyu.com/bing_images.php"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://kid1999.github.io/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="google-site-verification=1QTg0QaNHFPMhpyEbi6sCIR6Po-bAsEjy0UCeBQ90Nc"/><meta name="baidu-site-verification" content="code-STtYsRDbhz"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://kid1999.github.io","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  highlight_copy: 'false',
-  highlight_lang: 'true',
-  highlight_shrink: 'false',
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
   copy: {
     success: '复制成功',
     error: '复制错误',
     noSupport: '浏览器不支持'
   },
-  bookmark: {
-    title: 'Snackbar.bookmark.title',
-    message_prev: '按',
-    message_next: '键将本页加入书签'
+  relativeDate: {
+    homepage: false,
+    post: false
   },
-  runtime_unit: '天',
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
   copyright: undefined,
-  copy_copyright_js: false,
-  ClickShowText: {"text":"富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善","fontSize":"15px"},
-  medium_zoom: 'false',
-  Snackbar: undefined
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '强化学习前置知识',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-10-08 12:12:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-}</script><!-- hexo injector head_end start -->
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Kid1999' Blog</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">107</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">83</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">13</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">强化学习前置知识</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">目录</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">基本概念</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E4%B8%80%E4%BA%9B%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc_mobile_items-number">1.2.1.</span> <span class="toc_mobile_items-text">一些数学基础</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E4%B8%80%E4%BA%9B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80"><span class="toc_mobile_items-number">1.2.2.</span> <span class="toc_mobile_items-text">一些机器学习基础</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E5%90%8D%E8%AF%8D"><span class="toc_mobile_items-number">1.2.3.</span> <span class="toc_mobile_items-text">一些基础名词</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">马尔可夫决策过程</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E6%80%A7"><span class="toc_mobile_items-number">1.3.1.</span> <span class="toc_mobile_items-text">马尔科夫性</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="toc_mobile_items-number">1.3.2.</span> <span class="toc_mobile_items-text">马尔科夫过程</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E5%A5%96%E5%8A%B1%E8%BF%87%E7%A8%8B"><span class="toc_mobile_items-number">1.3.3.</span> <span class="toc_mobile_items-text">马尔科夫奖励过程</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#%E5%A5%96%E5%8A%B1%E5%87%BD%E6%95%B0R"><span class="toc_mobile_items-number">1.3.3.1.</span> <span class="toc_mobile_items-text">奖励函数R</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#%E8%A1%B0%E5%87%8F%E7%B3%BB%E6%95%B0-%CE%B3"><span class="toc_mobile_items-number">1.3.3.2.</span> <span class="toc_mobile_items-text">衰减系数 γ</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#%E6%94%B6%E8%8E%B7-Return"><span class="toc_mobile_items-number">1.3.3.3.</span> <span class="toc_mobile_items-text">收获 Return</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#%E7%8A%B6%E6%80%81%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0-Sate-Value-Function"><span class="toc_mobile_items-number">1.3.3.4.</span> <span class="toc_mobile_items-text">状态价值函数 Sate Value Function</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-5"><a class="toc_mobile_items-link" href="#%E4%B8%BE%E4%BE%8B%E8%AF%B4%E6%98%8E%E6%94%B6%E8%8E%B7%E5%92%8C%E4%BB%B7%E5%80%BC%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc_mobile_items-number">1.3.3.4.1.</span> <span class="toc_mobile_items-text">举例说明收获和价值的计算</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E8%B4%9D%E5%B0%94%E6%9B%BC%E6%96%B9%E7%A8%8B"><span class="toc_mobile_items-number">1.3.4.</span> <span class="toc_mobile_items-text">贝尔曼方程</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#%E5%8A%A8%E4%BD%9C%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0-Action-Value-function"><span class="toc_mobile_items-number">1.3.4.1.</span> <span class="toc_mobile_items-text">动作价值函数 Action-Value function</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">蒙特卡洛</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E4%BB%A5%E8%BF%91%E4%BC%BC%CF%80%E5%80%BC%E4%B8%BA%E4%BE%8B"><span class="toc_mobile_items-number">1.4.1.</span> <span class="toc_mobile_items-text">以近似π值为例</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E8%BF%91%E4%BC%BC%E7%A7%AF%E5%88%86"><span class="toc_mobile_items-number">1.4.2.</span> <span class="toc_mobile_items-text">近似积分</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E8%BF%91%E4%BC%BC%E6%9C%9F%E6%9C%9B"><span class="toc_mobile_items-number">1.4.3.</span> <span class="toc_mobile_items-text">近似期望</span></a></li></ol></li></ol></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">强化学习前置知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-number">1.2.1.</span> <span class="toc-text">一些数学基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80"><span class="toc-number">1.2.2.</span> <span class="toc-text">一些机器学习基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E5%90%8D%E8%AF%8D"><span class="toc-number">1.2.3.</span> <span class="toc-text">一些基础名词</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">马尔可夫决策过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E6%80%A7"><span class="toc-number">1.3.1.</span> <span class="toc-text">马尔科夫性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.2.</span> <span class="toc-text">马尔科夫过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E5%A5%96%E5%8A%B1%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.3.</span> <span class="toc-text">马尔科夫奖励过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A5%96%E5%8A%B1%E5%87%BD%E6%95%B0R"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">奖励函数R</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%B0%E5%87%8F%E7%B3%BB%E6%95%B0-%CE%B3"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">衰减系数 γ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B6%E8%8E%B7-Return"><span class="toc-number">1.3.3.3.</span> <span class="toc-text">收获 Return</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0-Sate-Value-Function"><span class="toc-number">1.3.3.4.</span> <span class="toc-text">状态价值函数 Sate Value Function</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B%E8%AF%B4%E6%98%8E%E6%94%B6%E8%8E%B7%E5%92%8C%E4%BB%B7%E5%80%BC%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-number">1.3.3.4.1.</span> <span class="toc-text">举例说明收获和价值的计算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9D%E5%B0%94%E6%9B%BC%E6%96%B9%E7%A8%8B"><span class="toc-number">1.3.4.</span> <span class="toc-text">贝尔曼方程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E4%BD%9C%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0-Action-Value-function"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">动作价值函数 Action-Value function</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B"><span class="toc-number">1.4.</span> <span class="toc-text">蒙特卡洛</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E8%BF%91%E4%BC%BC%CF%80%E5%80%BC%E4%B8%BA%E4%BE%8B"><span class="toc-number">1.4.1.</span> <span class="toc-text">以近似π值为例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%91%E4%BC%BC%E7%A7%AF%E5%88%86"><span class="toc-number">1.4.2.</span> <span class="toc-text">近似积分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%91%E4%BC%BC%E6%9C%9F%E6%9C%9B"><span class="toc-number">1.4.3.</span> <span class="toc-text">近似期望</span></a></li></ol></li></ol></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">强化学习前置知识</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2021-10-08<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2021-10-08</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon" aria-hidden="true"></i><span>字数总计: </span><span class="word-count">1.9k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon" aria-hidden="true"></i><span>阅读时长: 6 分钟</span><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true">       </i><span>阅读量: </span><span id="busuanzi_value_page_pv"></span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="强化学习前置知识"><a href="#强化学习前置知识" class="headerlink" title="强化学习前置知识"></a>强化学习前置知识</h1><blockquote>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">107</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">83</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.isoyu.com/bing_images.php')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Kid1999' Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">强化学习前置知识</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-08T04:12:50.000Z" title="发表于 2021-10-08 12:12:50">2021-10-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-10-08T04:12:50.000Z" title="更新于 2021-10-08 12:12:50">2021-10-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="强化学习前置知识"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="强化学习前置知识"><a href="#强化学习前置知识" class="headerlink" title="强化学习前置知识"></a>强化学习前置知识</h1><blockquote>
 <p>深度强化学习（Deep Reinforcement Learning）基础部分。</p>
 </blockquote>
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
@@ -92,7 +170,7 @@ function activateLightMode(){
 <li>神经网络</li>
 <li>反向传播和梯度下降</li>
 </ul>
-<h3 id="一些基础名词"><a href="#一些基础名词" class="headerlink" title="一些基础名词"></a>一些基础名词</h3><p><img style="zoom:67%;" data-src="https://pic.imgdb.cn/item/6159a3922ab3f51d9144b80a.jpg" class="lazyload"></p>
+<h3 id="一些基础名词"><a href="#一些基础名词" class="headerlink" title="一些基础名词"></a>一些基础名词</h3><p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.imgdb.cn/item/6159a3922ab3f51d9144b80a.jpg" style="zoom:67%;" /></p>
 <h2 id="马尔可夫决策过程"><a href="#马尔可夫决策过程" class="headerlink" title="马尔可夫决策过程"></a>马尔可夫决策过程</h2><blockquote>
 <p>马尔科夫决策过程（Markov decision process, MDP）是对完全可观测的环境进行描述的，也就是说观测到的状态内容完整地决定了决策的需要的特征。几乎所有的强化学习问题都可以转化为MDP。</p>
 </blockquote>
@@ -100,18 +178,18 @@ function activateLightMode(){
 <p>某一状态信息包含了所有相关的历史，只要当前状态可知，所有的历史信息都不再需要，当前状态就可以决定未来，则认为该状态具有<strong>马尔科夫性</strong>。</p>
 </blockquote>
 <h3 id="马尔科夫过程"><a href="#马尔科夫过程" class="headerlink" title="马尔科夫过程"></a><strong>马尔科夫过程</strong></h3><blockquote>
-<p><strong>马尔科夫过程</strong> 又叫马尔科夫链，它是一个无记忆的随机过程，可以用一个元组<s,p>表示，其中S是有限数量的状态集，P是状态转移概率矩阵。</s,p></p>
+<p><strong>马尔科夫过程</strong> 又叫马尔科夫链，它是一个无记忆的随机过程，可以用一个元组<S,P>表示，其中S是有限数量的状态集，P是状态转移概率矩阵。</p>
 </blockquote>
 <p>举例说明：<strong>学生马尔科夫链</strong></p>
-<p><img alt data-src="https://pic1.zhimg.com/80/v2-e1e894383536e4ff019f63e5507c2a18_720w.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic1.zhimg.com/80/v2-e1e894383536e4ff019f63e5507c2a18_720w.png" alt=""></p>
 <p>如图：圆圈表示学生所处的状态，方格Sleep是一个终止状态，或者可以描述成自循环的状态，也就是Sleep状态的下一个状态100%的几率还是自己。箭头表示状态之间的转移，箭头上的数字表示当前转移的概率。</p>
 <p>如：当学生处在第一节课（Class1）时，他/她有50%的几率会参加第2节课（Class2）；同时在也有50%的几率不在认真听课，进入到浏览facebook这个状态中。在浏览facebook这个状态时，他/她有90%的几率在下一时刻继续浏览，也有10%的几率返回到课堂内容上来。</p>
 <p>以此类推，一个可能的学生马尔科夫链从状态Class1开始，最终结束于Sleep，其间的过程根据状态转化图可以有很多种可能性，这些都称为<strong>Sample Episodes</strong>。以下四个Episodes都是可能的：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C1 - C2 - C3 - Pass - Sleep</span><br><span class="line">C1 - FB - FB - C1 - C2 - Sleep</span><br><span class="line">C1 - C2 - C3 - Pub - C2 - C3 - Pass - Sleep</span><br><span class="line">C1 - FB - FB - C1 - C2 - C3 - Pub - C1 - FB - FB - FB - C1 - C2 - C3 - Pub - C2 - Sleep</span><br></pre></td></tr></table></figure>
 <p>其状态转移矩阵如下图：</p>
-<p><img alt data-src="https://pic1.zhimg.com/v2-23b6d59cfe253c4a678a1d9e8df43110_r.jpg" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic1.zhimg.com/v2-23b6d59cfe253c4a678a1d9e8df43110_r.jpg" alt=""></p>
 <h3 id="马尔科夫奖励过程"><a href="#马尔科夫奖励过程" class="headerlink" title="马尔科夫奖励过程"></a><strong>马尔科夫奖励过程</strong></h3><blockquote>
-<p>马尔科夫奖励过程在马尔科夫过程的基础上增加了奖励R和衰减系数*γ：<s,p,r,γ></s,p,r,γ></p>
+<p>马尔科夫奖励过程在马尔科夫过程的基础上增加了奖励R和衰减系数*γ：<S,P,R,γ></p>
 </blockquote>
 <h4 id="奖励函数R"><a href="#奖励函数R" class="headerlink" title="奖励函数R"></a>奖励函数R</h4><blockquote>
 <p>S状态下的奖励是某一时刻(t)处在状态s下在下一个时刻(t+1)能获得的奖励期望 (当进入某个状态会获得相应的奖励)</p>
@@ -121,12 +199,12 @@ R_s = E[R_{t+1} | S_t = s]</script><h4 id="衰减系数-γ"><a href="#衰减系�
 <p>也叫<strong>折扣未来奖励</strong>，其中γ∈ [0, 1]，引入衰减系数可以避免陷入无限循环，远期利益具有一定的不确定性，符合人类对于眼前利益的追求。</p>
 </blockquote>
 <p>如图：（此图并没有特殊交代衰减系数值的大小）</p>
-<p><img alt data-src="https://pic2.zhimg.com/80/v2-4a4c2ccdb5911ec0125b75291a87dce5_720w.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/80/v2-4a4c2ccdb5911ec0125b75291a87dce5_720w.png" alt=""></p>
 <h4 id="收获-Return"><a href="#收获-Return" class="headerlink" title="收获 Return"></a><strong>收获 Return</strong></h4><blockquote>
 <p>收获 G_t 为在一个马尔科夫奖励链上从t时刻开始往后所有的奖励的有衰减的总和。</p>
 </blockquote>
 <script type="math/tex; mode=display">
-G_t = R_{t+1} + γR_{t+2} + .... = \sum_{k=0} γ^k R_{t+k+1}</script><p>其中衰减系数体现了未来的奖励在当前时刻的价值比例，在k+1时刻获得的奖励R在t时刻的体现出的价值是 <img alt="[公式]" data-src="https://www.zhihu.com/equation?tex=%5Cgamma%5Ek+R" class="lazyload"> ，γ接近0，则表明趋向于“近视”性评估；γ接近1则表明偏重考虑远期的利益。</p>
+G_t = R_{t+1} + γR_{t+2} + .... = \sum_{k=0} γ^k R_{t+k+1}</script><p>其中衰减系数体现了未来的奖励在当前时刻的价值比例，在k+1时刻获得的奖励R在t时刻的体现出的价值是 <img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://www.zhihu.com/equation?tex=%5Cgamma%5Ek+R" alt="[公式]"> ，γ接近0，则表明趋向于“近视”性评估；γ接近1则表明偏重考虑远期的利益。</p>
 <h4 id="状态价值函数-Sate-Value-Function"><a href="#状态价值函数-Sate-Value-Function" class="headerlink" title="状态价值函数 Sate Value Function"></a><strong>状态价值函数 Sate Value Function</strong></h4><blockquote>
 <p>价值函数给出了某一状态或某一行为的长期价值。</p>
 <p>一个马尔科夫奖励过程中某一状态的<strong>价值函数</strong>为<strong>从该状态开始</strong>的马尔可夫链<strong>收获</strong>的期望</p>
@@ -134,16 +212,16 @@ G_t = R_{t+1} + γR_{t+2} + .... = \sum_{k=0} γ^k R_{t+k+1}</script><p>其中�
 <script type="math/tex; mode=display">
 v(s) = E[G_t | S_t = s]</script><p>用<strong>行为价值函数</strong>来描述某一状态下执行某一行为的价值，严格意义上说行为价值函数是“<strong>状态行为对”价值函数</strong>的简写。</p>
 <h5 id="举例说明收获和价值的计算"><a href="#举例说明收获和价值的计算" class="headerlink" title="举例说明收获和价值的计算"></a><strong>举例说明收获和价值的计算</strong></h5><p>表中第二行对应各状态的即时奖励值</p>
-<p><img style="zoom:67%;" data-src="https://pic3.zhimg.com/80/v2-52c5d21082994b4cc1d4aac0fe4f58ba_720w.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic3.zhimg.com/80/v2-52c5d21082994b4cc1d4aac0fe4f58ba_720w.png" style="zoom:67%;" /></p>
 <p>当γ= 1/2时，在t=1时刻) 状态( S_1 = C_1 ) 的收获分别为：</p>
-<p><img style="zoom:67%;" data-src="https://pic2.zhimg.com/80/v2-91921a745909435f7b984d1dae5ef271_720w.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/80/v2-91921a745909435f7b984d1dae5ef271_720w.png" style="zoom:67%;" /></p>
 <p>可以发现，收获是针对一个马尔科夫链中的<strong>某一个状态</strong>来说的。</p>
 <p>当γ= 0时，上表描述的MRP中，各状态的即时奖励就与该状态的价值相同。</p>
 <p>当γ≠ 0时，各状态的价值需要通过计算得到。</p>
 <p>如γ分别为0, 0.9,和1三种情况下各状态的价值，如下图所示：</p>
-<p><img alt="img" data-src="https://pic1.zhimg.com/80/v2-052d21809b80c136060f91e78b5e2278_720w.png" class="lazyload"></p>
-<p><img alt="img" data-src="https://pic3.zhimg.com/80/v2-ec423d06e1166af7bc0cbfac7f49e6a2_720w.png" class="lazyload"></p>
-<p><img alt="img" data-src="https://pic4.zhimg.com/80/v2-9c5b6a2e2c4082b83056078a0b1ced6b_720w.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic1.zhimg.com/80/v2-052d21809b80c136060f91e78b5e2278_720w.png" alt="img"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic3.zhimg.com/80/v2-ec423d06e1166af7bc0cbfac7f49e6a2_720w.png" alt="img"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic4.zhimg.com/80/v2-9c5b6a2e2c4082b83056078a0b1ced6b_720w.png" alt="img"></p>
 <h3 id="贝尔曼方程"><a href="#贝尔曼方程" class="headerlink" title="贝尔曼方程"></a><strong>贝尔曼方程</strong></h3><p>在折扣未来奖励话题中，将t时刻的奖励函数R定义为</p>
 <script type="math/tex; mode=display">
 R_t=r_t+γ(r_{t+1}+γ(r_{t+2}+...))=r_t+γR_{t+1}</script><p>在价值函数话题中，将价值函数v(s)定义为</p>
@@ -182,7 +260,7 @@ Q^∗(s,a)=max_π Q^π(s,a)</script><p>因为最优的Q值必然为最大值，�
 <p>蒙特卡洛 (Monte Carlo) 是一大类随机算法 (Randomized Algorithms）的总称，它们通过随机样本来估算真实值。</p>
 </blockquote>
 <h3 id="以近似π值为例"><a href="#以近似π值为例" class="headerlink" title="以近似π值为例"></a>以近似π值为例</h3><p>假设在[-1,1]随机生成x和y。所以我们生成了一些正方形区域的点。我们随机抽样n次。</p>
-<p><img style="zoom:67%;" data-src="https://pic.imgdb.cn/item/615fc0472ab3f51d915dd739.jpg" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.imgdb.cn/item/615fc0472ab3f51d915dd739.jpg" style="zoom:67%;" /></p>
 <p>由圆方程：</p>
 <script type="math/tex; mode=display">
 x^2 + y^2 <= 1</script><p>如果我们均匀随机抽样n个点，其中有m个点满足圆方程。</p>
@@ -190,13 +268,13 @@ x^2 + y^2 <= 1</script><p>如果我们均匀随机抽样n个点，其中有m个�
 <script type="math/tex; mode=display">
 m = \frac{πn}{4}</script><p>做变化得：</p>
 <script type="math/tex; mode=display">
-π = \frac{4m}{n}</script><h3 id="近似积分"><a href="#近似积分" class="headerlink" title="近似积分"></a>近似积分</h3><p><img alt data-src="https://pic.imgdb.cn/item/615fc2352ab3f51d91603a9c.jpg" class="lazyload"></p>
+π = \frac{4m}{n}</script><h3 id="近似积分"><a href="#近似积分" class="headerlink" title="近似积分"></a>近似积分</h3><p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.imgdb.cn/item/615fc2352ab3f51d91603a9c.jpg" alt=""></p>
 <h3 id="近似期望"><a href="#近似期望" class="headerlink" title="近似期望"></a>近似期望</h3><blockquote>
 <p>在强化学习中，我们会经常用到蒙特卡洛做期望的近似。</p>
 </blockquote>
 <p>如果是均匀抽样，期望是定积分，所以可以用蒙特卡洛求定积分处理</p>
 <p>但是做非均匀抽样可能比均匀抽样有更快的收敛</p>
-<p><img alt data-src="https://pic.imgdb.cn/item/615fc4512ab3f51d9162b250.jpg" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.imgdb.cn/item/615fc4512ab3f51d9162b250.jpg" alt=""></p>
 <p>进一步推导：</p>
 <script type="math/tex; mode=display">
 q_t = (1 − αt)· q_{t−1} + α_t · f(x_t)</script><p>这个公式叫做Robbins-Monro 算法，其中 αn 称为学习步长或学习率。</p>
@@ -206,37 +284,15 @@ q_t = (1 − αt)· q_{t−1} + α_t · f(x_t)</script><p>这个公式叫做Robb
 <p><a target="_blank" rel="noopener" href="https://github.com/wangshusen/DRL/blob/master/Notes_CN/DRL.pdf">https://github.com/wangshusen/DRL/blob/master/Notes_CN/DRL.pdf</a></p>
 <p><a target="_blank" rel="noopener" href="https://mofanpy.com/tutorials/machine-learning/reinforcement-learning/intro-RL/">https://mofanpy.com/tutorials/machine-learning/reinforcement-learning/intro-RL/</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28084942">https://zhuanlan.zhihu.com/p/28084942</a></p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kid1999</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://kid1999.github.io/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/">http://kid1999.github.io/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://kid1999.github.io">Kid1999' Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button"><i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png"><div class="post-qr-code__desc">微信</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/"><img class="prev_cover lazyload" data-src="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>强化学习之策略学习</span></div></a></div><div class="next-post pull_right"><a href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/"><img class="next_cover lazyload" data-src="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>强化学习之价值学习</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
-  clientID: 'eac7c03188ca8d110797',
-  clientSecret: '42d63112bb6209d8bf965ae1838947e98eb6f557',
-  repo: 'kid1999.github.io',
-  owner: 'kid1999',
-  admin: 'kid1999',
-  id: md5(decodeURI(location.pathname)),
-  language: 'zh-CN'
-})
-gitalk.render('gitalk-container')</script></div></div></div><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By kid1999</div><div class="framework-info"><span>驱动 </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-    processEscapes: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kid1999</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://kid1999.github.io/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/">http://kid1999.github.io/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://kid1999.github.io" target="_blank">Kid1999' Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://api.isoyu.com/bing_images.php" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/"/></a><div class="post-qr-code-desc"></div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">强化学习之策略学习</div></div></a></div><div class="next-post pull-right"><a href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">强化学习之价值学习</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">kid1999</div><div class="author-info__description">一位计科学生的杂学手记。</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">107</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">83</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kid1999"><i class="fab fa-github"></i><span>点个关注</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">感谢访问，若喜欢请收藏 ^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">强化学习前置知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-number">1.2.1.</span> <span class="toc-text">一些数学基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80"><span class="toc-number">1.2.2.</span> <span class="toc-text">一些机器学习基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E5%90%8D%E8%AF%8D"><span class="toc-number">1.2.3.</span> <span class="toc-text">一些基础名词</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">马尔可夫决策过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E6%80%A7"><span class="toc-number">1.3.1.</span> <span class="toc-text">马尔科夫性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.2.</span> <span class="toc-text">马尔科夫过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E5%A5%96%E5%8A%B1%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.3.</span> <span class="toc-text">马尔科夫奖励过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A5%96%E5%8A%B1%E5%87%BD%E6%95%B0R"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">奖励函数R</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%B0%E5%87%8F%E7%B3%BB%E6%95%B0-%CE%B3"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">衰减系数 γ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B6%E8%8E%B7-Return"><span class="toc-number">1.3.3.3.</span> <span class="toc-text">收获 Return</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0-Sate-Value-Function"><span class="toc-number">1.3.3.4.</span> <span class="toc-text">状态价值函数 Sate Value Function</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B%E8%AF%B4%E6%98%8E%E6%94%B6%E8%8E%B7%E5%92%8C%E4%BB%B7%E5%80%BC%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-number">1.3.3.4.1.</span> <span class="toc-text">举例说明收获和价值的计算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9D%E5%B0%94%E6%9B%BC%E6%96%B9%E7%A8%8B"><span class="toc-number">1.3.4.</span> <span class="toc-text">贝尔曼方程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E4%BD%9C%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0-Action-Value-function"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">动作价值函数 Action-Value function</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B"><span class="toc-number">1.4.</span> <span class="toc-text">蒙特卡洛</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E8%BF%91%E4%BC%BC%CF%80%E5%80%BC%E4%B8%BA%E4%BE%8B"><span class="toc-number">1.4.1.</span> <span class="toc-text">以近似π值为例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%91%E4%BC%BC%E7%A7%AF%E5%88%86"><span class="toc-number">1.4.2.</span> <span class="toc-text">近似积分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%91%E4%BC%BC%E6%9C%9F%E6%9C%9B"><span class="toc-number">1.4.3.</span> <span class="toc-text">近似期望</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BPbft%E7%AE%97%E6%B3%95/" title="分布式一致性协议之Pbft算法"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式一致性协议之Pbft算法"/></a><div class="content"><a class="title" href="/2021/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BPbft%E7%AE%97%E6%B3%95/" title="分布式一致性协议之Pbft算法">分布式一致性协议之Pbft算法</a><time datetime="2021-10-26T15:20:52.000Z" title="发表于 2021-10-26 23:20:52">2021-10-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/24/IIOT%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/" title="IIOT区块链的强化学习优化"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IIOT区块链的强化学习优化"/></a><div class="content"><a class="title" href="/2021/10/24/IIOT%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/" title="IIOT区块链的强化学习优化">IIOT区块链的强化学习优化</a><time datetime="2021-10-24T14:57:33.000Z" title="发表于 2021-10-24 22:57:33">2021-10-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/" title="强化学习之策略学习"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强化学习之策略学习"/></a><div class="content"><a class="title" href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/" title="强化学习之策略学习">强化学习之策略学习</a><time datetime="2021-10-16T03:04:02.000Z" title="发表于 2021-10-16 11:04:02">2021-10-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" title="强化学习前置知识"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强化学习前置知识"/></a><div class="content"><a class="title" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" title="强化学习前置知识">强化学习前置知识</a><time datetime="2021-10-08T04:12:50.000Z" title="发表于 2021-10-08 12:12:50">2021-10-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/" title="强化学习之价值学习"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强化学习之价值学习"/></a><div class="content"><a class="title" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/" title="强化学习之价值学习">强化学习之价值学习</a><time datetime="2021-10-08T03:26:21.000Z" title="发表于 2021-10-08 11:26:21">2021-10-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By kid1999</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
   },
-  CommonHTML: {
-    linebreaks: { automatic: true, width: "90% container" }
-  },
-  "HTML-CSS": { 
-    linebreaks: { automatic: true, width: "90% container" }
-  },
-  "SVG": { 
-    linebreaks: { automatic: true, width: "90% container" }
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
   }
-});
-</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
-  var all = MathJax.Hub.getAllJax(), i;
-  for (i=0; i < all.length; i += 1) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script async src="/js/search/local-search.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/baidupush.js"> </script><script src="/js/tw_cn.js"></script><script>translateInitilization()
-</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><script src="/js/third-party/ClickShowText.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

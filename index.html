@@ -1,88 +1,182 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Kid1999' Blog</title><meta name="description" content="一位计科学生的杂学手记。"><meta name="keywords"><meta name="author" content="kid1999"><meta name="copyright" content="kid1999"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="google-site-verification" content="google-site-verification=1QTg0QaNHFPMhpyEbi6sCIR6Po-bAsEjy0UCeBQ90Nc"><meta name="baidu-site-verification" content="code-STtYsRDbhz"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Kid1999' Blog"><meta name="twitter:description" content="一位计科学生的杂学手记。"><meta name="twitter:image" content="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg"><meta property="og:type" content="website"><meta property="og:title" content="Kid1999' Blog"><meta property="og:url" content="http://kid1999.github.io/"><meta property="og:site_name" content="Kid1999' Blog"><meta property="og:description" content="一位计科学生的杂学手记。"><meta property="og:image" content="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
-var t = Cookies.get("theme");
-if (autoChangeMode == '1'){
-const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
-const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
-const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
-
-if (t === undefined){
-  if (isLightMode) activateLightMode()
-  else if (isDarkMode) activateDarkMode()
-  else if (isNotSpecified || hasNoSupport){
-    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
-    now = new Date();
-    hour = now.getHours();
-    isNight = hour < 6 || hour >= 18
-    isNight ? activateDarkMode() : activateLightMode()
-}
-} else if (t == 'light') activateLightMode()
-else activateDarkMode()
-
-
-} else if (autoChangeMode == '2'){
-  now = new Date();
-  hour = now.getHours();
-  isNight = hour < 6 || hour >= 18
-  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
-  else if (t === 'light') activateLightMode()
-  else activateDarkMode() 
-} else {
-  if ( t == 'dark' ) activateDarkMode()
-  else if ( t == 'light') activateLightMode()
-}
-
-function activateDarkMode(){
-  document.documentElement.setAttribute('data-theme', 'dark')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
-  }
-}
-function activateLightMode(){
-  document.documentElement.setAttribute('data-theme', 'light')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
-  }
-}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://kid1999.github.io/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><link rel="preload" href="https://ae01.alicdn.com/kf/H71b15991564d46b3aeaad2136b679c8dw.jpg" as="image"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kid1999' Blog</title><meta name="author" content="kid1999"><meta name="copyright" content="kid1999"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一位计科学生的杂学手记。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kid1999&#39; Blog">
+<meta property="og:url" content="http://kid1999.github.io/index.html">
+<meta property="og:site_name" content="Kid1999&#39; Blog">
+<meta property="og:description" content="一位计科学生的杂学手记。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg">
+<meta property="article:author" content="kid1999">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://kid1999.github.io/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="google-site-verification=1QTg0QaNHFPMhpyEbi6sCIR6Po-bAsEjy0UCeBQ90Nc"/><meta name="baidu-site-verification" content="code-STtYsRDbhz"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://kid1999.github.io","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  highlight_copy: 'false',
-  highlight_lang: 'true',
-  highlight_shrink: 'false',
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
   copy: {
     success: '复制成功',
     error: '复制错误',
     noSupport: '浏览器不支持'
   },
-  bookmark: {
-    title: 'Snackbar.bookmark.title',
-    message_prev: '按',
-    message_next: '键将本页加入书签'
+  relativeDate: {
+    homepage: false,
+    post: false
   },
-  runtime_unit: '天',
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
   copyright: undefined,
-  copy_copyright_js: false,
-  ClickShowText: {"text":"富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善","fontSize":"15px"},
-  medium_zoom: 'false',
-  Snackbar: undefined
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Kid1999\' Blog',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-11-08 12:29:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-}</script><!-- hexo injector head_end start -->
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Kid1999' Blog</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">107</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">83</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">13</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div></div><div id="body-wrap"><nav class="full_page" id="nav"><div class="nav_bg" style="background-image: url(https://ae01.alicdn.com/kf/H71b15991564d46b3aeaad2136b679c8dw.jpg)"></div><div id="site-info"><div id="site-title"><span class="blogtitle">Kid1999' Blog</span></div><div id="site-sub-title"><span class="subtitle"></span></div><div id="site-social-icons"><a class="social-icon" href="https://github.com/kid1999" target="_blank"><i class="fa fa-github"></i></a><a class="social-icon" href="mailto:kid.1447250889@live.com" target="_blank"><i class="fa fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div></div><div class="scroll-down"><i class="fa fa-angle-down scroll-down-effects"></i></div></nav><div id="content-outer"><div class="layout_page" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item article-container"><div class="post_cover pull_left left_radius"><a href="/2021/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BPbft%E7%AE%97%E6%B3%95/" title="分布式一致性协议之Pbft算法"><img class="post_bg lazyload" data-src="https://puui.qpic.cn/fans_admin/0/3_1680187318_1573908333220/0" onerror="onerror=null;src='/img/404.jpg'"></a></div><div class="recent-post-info">  <a class="article-title" href="/2021/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BPbft%E7%AE%97%E6%B3%95/" title="分布式一致性协议之Pbft算法">分布式一致性协议之Pbft算法</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-10-26</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a></span><div class="content">Practical Byzantine Fault Tolerance
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">107</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">83</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://api.isoyu.com/bing_images.php')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Kid1999' Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Kid1999' Blog</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BPbft%E7%AE%97%E6%B3%95/" title="分布式一致性协议之Pbft算法">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式一致性协议之Pbft算法"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BPbft%E7%AE%97%E6%B3%95/" title="分布式一致性协议之Pbft算法">分布式一致性协议之Pbft算法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-10-26T15:20:52.000Z" title="发表于 2021-10-26 23:20:52">2021-10-26</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a></span></div><div class="content">Practical Byzantine Fault Tolerance
 Practical Byzantine Fault Tolerance 实用拜占庭容错，是传统BFT的一种可用性实现，算法的时间复杂度为O(n2)
 
 总览
-The algorithm works roughly as follo ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover pull_right right_radius"><a href="/2021/10/24/IIOT%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/" title="IIOT区块链的强化学习优化"><img class="post_bg lazyload" data-src="https://puui.qpic.cn/fans_admin/0/3_1680187318_1573908333220/0" onerror="onerror=null;src='/img/404.jpg'"></a></div><div class="recent-post-info">  <a class="article-title" href="/2021/10/24/IIOT%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/" title="IIOT区块链的强化学习优化">IIOT区块链的强化学习优化</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-10-24</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/%E8%AE%BA%E6%96%87/">论文</a></span><div class="content">DRL in BlockChain总体结构
+PBFT 算法中, 存在一个主节点(primary) 和其他的备份节点 (replica), PBFT 共识机制主要包含两部分:
+
+第一部分是分布式共识达成,在主节点正常工作时, PBFT 通过预准备 (pre-prepare)、准备 (prepare) 和承诺 (commit) 三个步骤完成共识;
+第二部分是视图转换 (view-change), 当主节点出现问题不能及时处理数据请求时, 其他备份节点发起视图转换, 转换成功后新的主节点开始工作. 主节点以轮转 (round robin) 的方式交替更换；
+
+PBFT 的分布式共识达成过程
+请求 (propose). 客户端 (client) 上传请求消息 m 至网络中的节点, 包括主节点和其他备份节点.
+预准备 (pre-prepare). 主节点收到客户端上传的请求消息 m, 赋予消息序列号 s, 计算得到 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/10/24/IIOT%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/" title="IIOT区块链的强化学习优化">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IIOT区块链的强化学习优化"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/10/24/IIOT%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/" title="IIOT区块链的强化学习优化">IIOT区块链的强化学习优化</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-10-24T14:57:33.000Z" title="发表于 2021-10-24 22:57:33">2021-10-24</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%BA%E6%96%87/">论文</a></span></div><div class="content">DRL in BlockChain总体结构
 abstract 摘要
 introduction 绪论
 related works 相关工作
 system model 系统模型
 performance analysis 性能分析
-DRL-based performance optimization fr ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover pull_left left_radius"><a href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/" title="强化学习之策略学习"><img class="post_bg lazyload" data-src="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" onerror="onerror=null;src='/img/404.jpg'"></a></div><div class="recent-post-info">  <a class="article-title" href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/" title="强化学习之策略学习">强化学习之策略学习</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-10-16</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span><div class="content">强化学习之策略学习
+DRL-based performance optimization framework
+simulation result and discussions 实验结果与讨论
+
+摘要在区块链环境下，为了满足高吞吐量的需求。
+本文提出了一种基于强化学习的基于区块链的工业物联网系统性能优化框架。其目标有三个：
+
+提供一种从可扩展性、去中心化、延迟和安全性方面评估系统的方法。
+在不影响系统去中心化、延迟和安全性的前提下，提高底层区块链的可扩展性（吞吐量）
+为工业物联网系统设计一个可模块化的区块链，其中区块生产者、共识算法、区块大小和区块间隔可以使用DRL技术选择/调整。
+
+绪论从工业网联网的广泛应用，到区块链帮助工业物联网建立一个安全、高效的数据存储/处理/共享环境。然后引出，对于传统区块链系统来说，在为工业物联网提供高交易吞吐量需求时存在挑战。
+从比特币到以太坊TPS仍 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/" title="强化学习之策略学习">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强化学习之策略学习"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/" title="强化学习之策略学习">强化学习之策略学习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-10-16T03:04:02.000Z" title="发表于 2021-10-16 11:04:02">2021-10-16</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span></div><div class="content">强化学习之策略学习
 策略学习的意思是通过求解一个优化问题，学出最优策略函数或它的近似（比如策略网络）。
 首先把策略学习描述成一个最大化问题。
 推导策略梯度
@@ -92,7 +186,16 @@ DRL-based performance optimization fr ...</div></div></div><div class="recent-po
 策略函数 π 是个条件概率质量函数
 
 
-π(a|s) = P(A=a|S=s ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover pull_right right_radius"><a href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" title="强化学习前置知识"><img class="post_bg lazyload" data-src="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" onerror="onerror=null;src='/img/404.jpg'"></a></div><div class="recent-post-info">  <a class="article-title" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" title="强化学习前置知识">强化学习前置知识</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-10-08</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span><div class="content">强化学习前置知识
+π(a|s) = P(A=a|S=s)输入状态的动作，输出一个0-1之间的概率值。我们在每一个状态s下,利用策略函数计算每个动作的概率值，然后随机抽样得到动作a，让Agent执行动作a。
+如何得到这样一个策略函数？
+最有效还是用神经网络去近似π函数，这样的神经网络称为策略网络。
+θ 表示神经网络的参数；一开 始随机初始化 θ，随后利用收集的状态、动作、奖励去更新 θ。
+策略网络的目标函数复习一些基本内容回报 Ut 是从 t 从 时刻开始的所有奖励之和。Ut 依赖于 t 时刻开始的所有状态和动作：
+
+S_t, A_t, S_{t+1}, A_{t+1}, S_{t+2}, A_{t+2}, ··
+\\
+U_t = r_t+r_{t+1} + ....在 t 时刻，Ut 是随机变量，它的不确定性来自于未来未知的状态和动作。
+动作价 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" title="强化学习前置知识">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强化学习前置知识"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" title="强化学习前置知识">强化学习前置知识</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-10-08T04:12:50.000Z" title="发表于 2021-10-08 12:12:50">2021-10-08</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span></div><div class="content">强化学习前置知识
 深度强化学习（Deep Reinforcement Learning）基础部分。
 
 目录
@@ -108,7 +211,23 @@ DRL-based performance optimization fr ...</div></div></div><div class="recent-po
 蒙特卡洛（采样越多，越近似最优解；尽量找好的，但不保证是最好的。）
 
 一些机器学习基础
-线 ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover pull_left left_radius"><a href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/" title="强化学习之价值学习"><img class="post_bg lazyload" data-src="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" onerror="onerror=null;src='/img/404.jpg'"></a></div><div class="recent-post-info">  <a class="article-title" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/" title="强化学习之价值学习">强化学习之价值学习</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-10-08</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span><div class="content">强化学习之价值学习
+线性模型
+神经网络
+反向传播和梯度下降
+
+一些基础名词
+马尔可夫决策过程
+马尔科夫决策过程（Markov decision process, MDP）是对完全可观测的环境进行描述的，也就是说观测到的状态内容完整地决定了决策的需要的特征。几乎所有的强化学习问题都可以转化为MDP。
+
+马尔科夫性
+某一状态信息包含了所有相关的历史，只要当前状态可知，所有的历史信息都不再需要，当前状态就可以决定未来，则认为该状态具有马尔科夫性。
+
+马尔科夫过程
+马尔科夫过程 又叫马尔科夫链，它是一个无记忆的随机过程，可以用一个元组表示，其中S是有限数量的状态集，P是状态转移概率矩阵。
+
+举例说明：学生马尔科夫链
+
+如图：圆圈表示学生所处的状态，方格Sleep是一个终止状态，或者可以描述成自循环的状态，也就是Sleep ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/" title="强化学习之价值学习">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强化学习之价值学习"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/" title="强化学习之价值学习">强化学习之价值学习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-10-08T03:26:21.000Z" title="发表于 2021-10-08 11:26:21">2021-10-08</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span></div><div class="content">强化学习之价值学习
 在贝尔曼方程中，我们试图求出 Q(s,a) 使得Agent获得最大的利益，这样的学习方式，称之为价值学习。
 
 再次细分，如果是求解最优动作值函数
@@ -116,55 +235,126 @@ DRL-based performance optimization fr ...</div></div></div><div class="recent-po
 Q^∗(s,a)=max_π Q^π(s,a)称为Q-Learning。
 如果是求解动作值函数
 
-Q^π(s,a)=E[r_{t+1 ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover pull_right right_radius"><a href="/2021/10/01/Fabric-SDK-GO%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/" title="Fabric-SDK-GO工作流程解析"><img class="post_bg lazyload" data-src="https://ae01.alicdn.com/kf/H578cfe19a3854a09ae91991ec2f13f7ey.jpg" onerror="onerror=null;src='/img/404.jpg'"></a></div><div class="recent-post-info">  <a class="article-title" href="/2021/10/01/Fabric-SDK-GO%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/" title="Fabric-SDK-GO工作流程解析">Fabric-SDK-GO工作流程解析</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-10-01</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a></span><div class="content">Fabric-SDK-GO工作流程解析
+Q^π(s,a)=E[r_{t+1}+λr_{t+2}+λ^2r_{t+3}+...|s,a]
+\\
+=E_{s′}[r+λQ^π(s′,a′)|s,a]称为SARSA。
+同策略与异策略为了解释同策略和异策略，我们要从行为策略 (Behavior Policy) 和目标策略 (Target Policy) 讲起。
+在强化学习中，我们让智能体与环境交互，记录下观测到的状态、动作、奖励，用 这些经验来学习一个策略函数。在这一过程中，控制智能体与环境交互的策略被称作行为策略。行为策略的作用是收集经验 (Experience)，即观测的环境、动作、奖励。
+训练的目的是得到一个策略函数，在结束训练之后，用这个策略函数来控制智能体； 这个策略函数就叫做目标策略。
+同策略是指用相同的行为策略和目标策略。如下所使用的SARSA。
+
+比如SA ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/10/01/Fabric-SDK-GO%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/" title="Fabric-SDK-GO工作流程解析">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fabric-SDK-GO工作流程解析"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/10/01/Fabric-SDK-GO%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/" title="Fabric-SDK-GO工作流程解析">Fabric-SDK-GO工作流程解析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-10-01T02:44:12.000Z" title="发表于 2021-10-01 10:44:12">2021-10-01</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a></span></div><div class="content">Fabric-SDK-GO工作流程解析
 首先按惯例，使用fabric-sample中的fabcar案例介绍，其背后的工作流程。
 此处只关注于其中的application部分，即调用SDK的部分。
 
 示例fabcar.go
-123456789101112131415161718192021222324 ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover pull_left left_radius"><a href="/2021/09/30/Fabric-CA%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E7%AE%80%E6%9E%90/" title="Fabric-CA项目结构简析"><img class="post_bg lazyload" data-src="https://ae01.alicdn.com/kf/H578cfe19a3854a09ae91991ec2f13f7ey.jpg" onerror="onerror=null;src='/img/404.jpg'"></a></div><div class="recent-post-info">  <a class="article-title" href="/2021/09/30/Fabric-CA%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E7%AE%80%E6%9E%90/" title="Fabric-CA项目结构简析">Fabric-CA项目结构简析</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-09-30</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a></span><div class="content">Fabric CA 代码结构解析
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140/*Copyright 2020 IBM All Rights Reserved.SPDX-License-Identifier: Apache-2.0* ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/09/30/Fabric-CA%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E7%AE%80%E6%9E%90/" title="Fabric-CA项目结构简析">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fabric-CA项目结构简析"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/09/30/Fabric-CA%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E7%AE%80%E6%9E%90/" title="Fabric-CA项目结构简析">Fabric-CA项目结构简析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-09-30T08:05:54.000Z" title="发表于 2021-09-30 16:05:54">2021-09-30</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a></span></div><div class="content">Fabric CA 代码结构解析
 Fabric CA项目是超级账本Fabric内的MemberService组件, 对网络内各个实体的身份证书的管理, 它提供的功能有：
 
 身份认证，或者从 LDAP（轻量目录访问协议） 中获取注册信息；
 
-发行担保证书 ECerts (Enrollment Cert ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover pull_right right_radius"><a href="/2021/09/23/X509%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%87%E5%87%86/" title="X509数字证书标准"><img class="post_bg lazyload" data-src="https://ae01.alicdn.com/kf/H578cfe19a3854a09ae91991ec2f13f7ey.jpg" onerror="onerror=null;src='/img/404.jpg'"></a></div><div class="recent-post-info">  <a class="article-title" href="/2021/09/23/X509%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%87%E5%87%86/" title="X509数字证书标准">X509数字证书标准</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-09-23</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a></span><div class="content">X.509数字证书标准X.509 数字证书结构图
+发行担保证书 ECerts (Enrollment Certificates)；
+
+发行交易证书 TCerts (Transaction Certificates)，保障 Hyperledger Fabric 区域链交易平台上的信息匿名性和不可追踪性；
+
+证书更新和撤销。
+
+
+
+api123├─api│      client.go│      net.go
+主要是封装一些Request和Response的结构体，以及一些信息的结构体。
+如： 新身份注册的请求体
+12345678910111213141516171819202122// RegistrationRequest for a new identitytype RegistrationRequest struct &#123;	// Name is the unique name of t ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/09/23/X509%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%87%E5%87%86/" title="X509数字证书标准">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="X509数字证书标准"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/09/23/X509%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E6%A0%87%E5%87%86/" title="X509数字证书标准">X509数字证书标准</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-09-23T03:01:19.000Z" title="发表于 2021-09-23 11:01:19">2021-09-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a></span></div><div class="content">X.509数字证书标准X.509 数字证书结构图
 简单来说，数字证书就是一张附带了数字签名的信息表。
 
 
 以RSA算法为例X.509证书和私钥生成生成秘钥流程
 
 使用crypto/rsa中的GenerateKey(random io.Reader, bits int)方法生成私钥（结构体）
-因为X5 ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover pull_left left_radius"><a href="/2021/09/21/%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95%E4%BA%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" title="国密算法了解与实践"><img class="post_bg lazyload" data-src="https://puui.qpic.cn/fans_admin/0/3_1680187318_1573908333220/0" onerror="onerror=null;src='/img/404.jpg'"></a></div><div class="recent-post-info">  <a class="article-title" href="/2021/09/21/%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95%E4%BA%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" title="国密算法了解与实践">国密算法了解与实践</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-09-21</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a></span><div class="content">国密算法了解与实践了解
+因为X509证书采用了ASN1描述结构，需要通过Go语言API将的到的私钥（结构体），转换为BER编码规则的字符串。
+需要将ASN1 BER 规则转回为PEM数据编码。pem.Encode(out io.Writer, b *Block)
+将返回的数据保存
+
+
+生成证书流程
+
+使用crypto/rsa中的GenerateKey(random io.Reader, bits int)方法生成私钥（结构体）
+构建x.509的证书的结构模型template
+根据公钥、私钥、证书模板生成DER编码规则的字符串。
+需要生成的DER编码转回为PEM数据编码。pem.Encode(out io.Writer, b *Block)
+将返回的数据保存
+
+
+1234567891011121314151617181920 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/09/21/%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95%E4%BA%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" title="国密算法了解与实践">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="国密算法了解与实践"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/09/21/%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95%E4%BA%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" title="国密算法了解与实践">国密算法了解与实践</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-09-21T10:18:57.000Z" title="发表于 2021-09-21 18:18:57">2021-09-21</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a></span></div><div class="content">国密算法了解与实践了解
 国密即国家密码局认定的国产密码算法。主要有SM1，SM2，SM3，SM4。密钥长度和分组长度均为128位。
 
 
 SM1 为对称加密。
-其加密强度与AES相当。该算法不公开，调用该算法时，需要通过加密芯片的接口进行调用。采用该算法已经研制了系列芯片、智能IC卡、智能密码钥匙、加 ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover pull_right right_radius"><a href="/2021/09/20/HyperledgerExplorer%E5%AE%89%E8%A3%85%E4%B8%8ESDK%E8%A7%A3%E6%9E%90/" title="HyperledgerExplorer安装与解析"><img class="post_bg lazyload" data-src="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" onerror="onerror=null;src='/img/404.jpg'"></a></div><div class="recent-post-info">  <a class="article-title" href="/2021/09/20/HyperledgerExplorer%E5%AE%89%E8%A3%85%E4%B8%8ESDK%E8%A7%A3%E6%9E%90/" title="HyperledgerExplorer安装与解析">HyperledgerExplorer安装与解析</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-09-20</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a></span><div class="content">HyperledgerExplorer安装与SDK解析安装
+其加密强度与AES相当。该算法不公开，调用该算法时，需要通过加密芯片的接口进行调用。采用该算法已经研制了系列芯片、智能IC卡、智能密码钥匙、加密卡、加密机等安全产品，广泛应用于电子政务、电子商务及国民经济的各个应用领域（包括国家政务通、警务通等重要领域）。
+
+SM2为非对称加密，基于ECC。
+该算法已公开。由于该算法基于ECC，故其签名速度与秘钥生成速度都快于RSA。ECC 256位（SM2采用的就是ECC 256位的一种）安全强度比RSA 2048位高，但运算速度快于RSA。
+
+SM3 消息摘要。
+可以用MD5作为对比理解。该算法已公开。校验结果为256位。
+
+SM4 无线局域网标准的分组数据算法。对称加密，密钥长度和分组长度均为128位。
+
+
+由于SM1、SM4加解密的分组大小为128bit，故对消息进行加解密时，若消息长度过长，需要进行分组，要消息长度不足，则要进行填充。
+实践
+基于同济研究院国密算法。其实现了 GM SM2 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2021/09/20/HyperledgerExplorer%E5%AE%89%E8%A3%85%E4%B8%8ESDK%E8%A7%A3%E6%9E%90/" title="HyperledgerExplorer安装与解析">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HyperledgerExplorer安装与解析"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/09/20/HyperledgerExplorer%E5%AE%89%E8%A3%85%E4%B8%8ESDK%E8%A7%A3%E6%9E%90/" title="HyperledgerExplorer安装与解析">HyperledgerExplorer安装与解析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-09-20T06:13:23.000Z" title="发表于 2021-09-20 14:13:23">2021-09-20</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a></span></div><div class="content">HyperledgerExplorer安装与SDK解析安装
 详细步骤参照hyperledger Explorer README 文件中 quick start using docker 部分。
 试验目录: /data/explorer
-前置环境：启动 fabric test-netwrok 网络 并 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-chevron-right"></i></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card_widget card-author"><div class="card-content"><div class="post_data"><div class="data-item is_center"><img class="lazyload avatar_img" src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="onerror=null;src='/img/friend_404.gif'"><p class="author-info__name is_center">kid1999</p><p class="author-info__description is_center">一位计科学生的杂学手记。</p></div></div><div class="post_data data_config"><div class="data-item is_center"><div class="data_link"><a href="/archives/"><p class="headline">文章</p><p class="length_num">107</p></a></div></div><div class="data-item is_center">      <div class="data_link"><a href="/tags/"><p class="headline">标签</p><p class="length_num">83</p></a></div></div><div class="data-item is_center">     <div class="data_link"><a href="/categories/"><p class="headline">分类</p><p class="length_num">13</p></a></div></div></div><div class="post_data is_center"><a class="data-item bookmark bookmarke--primary bookmark--animated" id="bookmark-it" href="javascript:;" title="加入书签" target="_self"><i class="fa fa-bookmark" aria-hidden="true"></i><span>加入书签</span></a></div><div class="post_data data_config"><div id="aside-social-icons"> <a class="social-icon data-item" href="https://github.com/kid1999" target="_blank"><i class="fa fa-github"></i></a><a class="social-icon data-item" href="mailto:kid.1447250889@live.com" target="_blank"><i class="fa fa-envelope"></i></a><a class="social-icon data-item" href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div></div></div></div><div class="card_widget card-announcement"><div class="card-content"><div class="item_headline"><i class="fa fa-bullhorn card-announcement-animation" aria-hidden="true"></i><span>公告</span></div><div class="announcement_content">感謝訪問本站，若喜歡請收藏 ^_^</div></div></div><div class="card_widget card-recent-post"><div class="card-content"><div class="item_headline"><i class="fa fa-history" aria-hidden="true"></i><span>最新文章</span></div><div class="aside_recent_item"><div class="aside_recent_post"><a href="/2021/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BPbft%E7%AE%97%E6%B3%95/"><div class="aside_post_cover"><img class="aside_post_bg lazyload" data-src="https://puui.qpic.cn/fans_admin/0/3_1680187318_1573908333220/0" onerror="onerror=null;src='/img/404.jpg'" title="分布式一致性协议之Pbft算法"></div><div id="aside_title"><div class="aside_post_title" href="/2021/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BPbft%E7%AE%97%E6%B3%95/" title="分布式一致性协议之Pbft算法">分布式一致性协议之Pbft算法</div><time class="aside_post_meta post-meta__date">2021-10-26</time></div></a></div><div class="aside_recent_post"><a href="/2021/10/24/IIOT%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/"><div class="aside_post_cover"><img class="aside_post_bg lazyload" data-src="https://puui.qpic.cn/fans_admin/0/3_1680187318_1573908333220/0" onerror="onerror=null;src='/img/404.jpg'" title="IIOT区块链的强化学习优化"></div><div id="aside_title"><div class="aside_post_title" href="/2021/10/24/IIOT%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/" title="IIOT区块链的强化学习优化">IIOT区块链的强化学习优化</div><time class="aside_post_meta post-meta__date">2021-10-24</time></div></a></div><div class="aside_recent_post"><a href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/"><div class="aside_post_cover"><img class="aside_post_bg lazyload" data-src="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" onerror="onerror=null;src='/img/404.jpg'" title="强化学习之策略学习"></div><div id="aside_title"><div class="aside_post_title" href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/" title="强化学习之策略学习">强化学习之策略学习</div><time class="aside_post_meta post-meta__date">2021-10-16</time></div></a></div><div class="aside_recent_post"><a href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/"><div class="aside_post_cover"><img class="aside_post_bg lazyload" data-src="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" onerror="onerror=null;src='/img/404.jpg'" title="强化学习前置知识"></div><div id="aside_title"><div class="aside_post_title" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" title="强化学习前置知识">强化学习前置知识</div><time class="aside_post_meta post-meta__date">2021-10-08</time></div></a></div><div class="aside_recent_post"><a href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/"><div class="aside_post_cover"><img class="aside_post_bg lazyload" data-src="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" onerror="onerror=null;src='/img/404.jpg'" title="强化学习之价值学习"></div><div id="aside_title"><div class="aside_post_title" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/" title="强化学习之价值学习">强化学习之价值学习</div><time class="aside_post_meta post-meta__date">2021-10-08</time></div></a></div></div></div></div><div class="card_widget card-categories"><div class="card-content"><div class="item_headline"><i class="fa fa-folder-open" aria-hidden="true"></i><span>分类</span></div><ul class="aside_category_item">       <li class="aside_category_list"><a class="aside_category_list_link" href="/categories/Electron/"><span class="aside_category_list_name">Electron</span><span class="aside_category_list_length">2</span></a></li><li class="aside_category_list"><a class="aside_category_list_link" href="/categories/GoLang/"><span class="aside_category_list_name">GoLang</span><span class="aside_category_list_length">10</span></a></li><li class="aside_category_list"><a class="aside_category_list_link" href="/categories/Java-web/"><span class="aside_category_list_name">Java web</span><span class="aside_category_list_length">20</span></a></li><li class="aside_category_list"><a class="aside_category_list_link" href="/categories/TypeScript/"><span class="aside_category_list_name">TypeScript</span><span class="aside_category_list_length">1</span></a></li><li class="aside_category_list"><a class="aside_category_list_link" href="/categories/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/"><span class="aside_category_list_name">java基础语法</span><span class="aside_category_list_length">4</span></a></li><li class="aside_category_list"><a class="aside_category_list_link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"><span class="aside_category_list_name">区块链</span><span class="aside_category_list_length">19</span></a></li><li class="aside_category_list"><a class="aside_category_list_link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"><span class="aside_category_list_name">大数据</span><span class="aside_category_list_length">4</span></a></li><li class="aside_category_list"><a class="aside_category_list_link" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/"><span class="aside_category_list_name">密码学</span><span class="aside_category_list_length">4</span></a></li><li class="aside_category_list"><a class="aside_category_list_link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"><span class="aside_category_list_name">机器学习</span><span class="aside_category_list_length">13</span></a></li><li class="aside_category_list"><a class="aside_category_list_link" href="/categories/%E7%AE%97%E6%B3%95/"><span class="aside_category_list_name">算法</span><span class="aside_category_list_length">20</span></a></li><li class="aside_category_list"><a class="aside_category_list_link" href="/categories/%E8%AE%BA%E6%96%87/"><span class="aside_category_list_name">论文</span><span class="aside_category_list_length">1</span></a></li><li class="aside_category_list"><a class="aside_category_list_link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="aside_category_list_name">设计模式</span><span class="aside_category_list_length">3</span></a></li><li class="aside_category_list"><a class="aside_category_list_link" href="/categories/%E8%BF%90%E7%BB%B4/"><span class="aside_category_list_name">运维</span><span class="aside_category_list_length">5</span></a></li></ul></div></div><div class="card_widget card-tags"><div class="card-content"><div class="item_headline"><i class="fa fa-tags" aria-hidden="true"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Axios/" style="font-size: 17.33px; color: #808080">Axios</a> <a href="/tags/BTC/" style="font-size: 16px; color: #999">BTC</a> <a href="/tags/DFS/" style="font-size: 16px; color: #999">DFS</a> <a href="/tags/DP/" style="font-size: 16px; color: #999">DP</a> <a href="/tags/DQN/" style="font-size: 16px; color: #999">DQN</a> <a href="/tags/Docker/" style="font-size: 18.67px; color: #666">Docker</a> <a href="/tags/ETH/" style="font-size: 16px; color: #999">ETH</a> <a href="/tags/EasyMock/" style="font-size: 16px; color: #999">EasyMock</a> <a href="/tags/ElasticSearch/" style="font-size: 16px; color: #999">ElasticSearch</a> <a href="/tags/Electron/" style="font-size: 17.33px; color: #808080">Electron</a> <a href="/tags/Element-UI/" style="font-size: 16px; color: #999">Element-UI</a> <a href="/tags/Fabirc/" style="font-size: 24px; color: #000">Fabirc</a> <a href="/tags/FastDFS/" style="font-size: 16px; color: #999">FastDFS</a> <a href="/tags/Go/" style="font-size: 21.33px; color: #333">Go</a> <a href="/tags/Hadoop/" style="font-size: 18.67px; color: #666">Hadoop</a> <a href="/tags/IO/" style="font-size: 16px; color: #999">IO</a> <a href="/tags/JPA/" style="font-size: 17.33px; color: #808080">JPA</a> <a href="/tags/Kafka/" style="font-size: 17.33px; color: #808080">Kafka</a> <a href="/tags/Kaptcha/" style="font-size: 16px; color: #999">Kaptcha</a> <a href="/tags/LayUI/" style="font-size: 16px; color: #999">LayUI</a> <a href="/tags/MyBatis/" style="font-size: 16px; color: #999">MyBatis</a> <a href="/tags/MyBatisPlus/" style="font-size: 16px; color: #999">MyBatisPlus</a> <a href="/tags/PKI/" style="font-size: 16px; color: #999">PKI</a> <a href="/tags/Raft/" style="font-size: 16px; color: #999">Raft</a> <a href="/tags/SVM/" style="font-size: 16px; color: #999">SVM</a> <a href="/tags/Shiro/" style="font-size: 16px; color: #999">Shiro</a> <a href="/tags/Solidity/" style="font-size: 16px; color: #999">Solidity</a> <a href="/tags/Spark/" style="font-size: 16px; color: #999">Spark</a> <a href="/tags/Spring/" style="font-size: 16px; color: #999">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 16px; color: #999">SpringBoot</a> <a href="/tags/SpringMVC/" style="font-size: 16px; color: #999">SpringMVC</a> <a href="/tags/Swagger2/" style="font-size: 16px; color: #999">Swagger2</a> <a href="/tags/Thymeleaf/" style="font-size: 16px; color: #999">Thymeleaf</a> <a href="/tags/TypeScript/" style="font-size: 16px; color: #999">TypeScript</a> <a href="/tags/Vue-js/" style="font-size: 17.33px; color: #808080">Vue.js</a> <a href="/tags/WEB/" style="font-size: 16px; color: #999">WEB</a> <a href="/tags/gRPC/" style="font-size: 16px; color: #999">gRPC</a> <a href="/tags/hello-world/" style="font-size: 22.67px; color: #1a1a1a">hello world</a> <a href="/tags/jvm/" style="font-size: 16px; color: #999">jvm</a> <a href="/tags/makefile/" style="font-size: 16px; color: #999">makefile</a> <a href="/tags/pbft/" style="font-size: 16px; color: #999">pbft</a> <a href="/tags/protocol-buffers/" style="font-size: 16px; color: #999">protocol-buffers</a> <a href="/tags/security/" style="font-size: 17.33px; color: #808080">security</a> <a href="/tags/%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86/" style="font-size: 16px; color: #999">中国剩余定理</a> <a href="/tags/%E4%BA%8C%E5%88%86/" style="font-size: 16px; color: #999">二分</a> <a href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" style="font-size: 16px; color: #999">代理模式</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/" style="font-size: 17.33px; color: #808080">分布式系统</a> <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" style="font-size: 16px; color: #999">前缀和</a> <a href="/tags/%E5%89%8D%E7%BC%80%E6%A0%91/" style="font-size: 16px; color: #999">前缀树</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 17.33px; color: #808080">动态规划</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 16px; color: #999">双指针</a> <a href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" style="font-size: 16px; color: #999">反向代理</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 16px; color: #999">反射</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 16px; color: #999">回溯</a> <a href="/tags/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" style="font-size: 16px; color: #999">定时任务</a> <a href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" style="font-size: 16px; color: #999">工厂模式</a> <a href="/tags/%E5%B9%B6%E5%8F%91/" style="font-size: 18.67px; color: #666">并发</a> <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" style="font-size: 16px; color: #999">并发编程</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 16px; color: #999">并查集</a> <a href="/tags/%E5%BC%82%E6%AD%A5/" style="font-size: 16px; color: #999">异步</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/" style="font-size: 16px; color: #999">快速幂</a> <a href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" style="font-size: 16px; color: #999">排列组合</a> <a href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" style="font-size: 17.33px; color: #808080">排序算法</a> <a href="/tags/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D/" style="font-size: 17.33px; color: #808080">数字签名</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 20px; color: #4d4d4d">数据结构</a> <a href="/tags/%E6%95%B0%E8%AE%BA/" style="font-size: 17.33px; color: #808080">数论</a> <a href="/tags/%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/" style="font-size: 16px; color: #999">时间格式</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0-%E6%9C%80%E5%A4%A7%E5%85%AC%E5%9B%A0%E6%95%B0/" style="font-size: 16px; color: #999">最小公倍数-最大公因数</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" style="font-size: 16px; color: #999">最小生成树</a> <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" style="font-size: 16px; color: #999">最短路径</a> <a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 17.33px; color: #808080">模拟</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 16px; color: #999">注解</a> <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" style="font-size: 16px; color: #999">滑动窗口</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 17.33px; color: #808080">环境搭建</a> <a href="/tags/%E7%AB%9E%E8%B5%9B/" style="font-size: 17.33px; color: #808080">竞赛</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 21.33px; color: #333">算法</a> <a href="/tags/%E7%B4%A0%E6%95%B0%E7%AD%9B%E6%B3%95/" style="font-size: 16px; color: #999">素数筛法</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 16px; color: #999">线段树</a> <a href="/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" style="font-size: 16px; color: #999">背包问题</a> <a href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 16px; color: #999">装饰器模式</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 17.33px; color: #808080">设计模式</a> <a href="/tags/%E9%82%AE%E7%AE%B1/" style="font-size: 16px; color: #999">邮箱</a> <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" style="font-size: 16px; color: #999">面向对象</a></div></div></div><div class="card_widget card-archives"><div class="card-content"><div class="item_headline"><i class="fa fa-archive" aria-hidden="true"></i><span>归档</span></div><div class="archives_item"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">2021年10月<span class="archive-list-count">6</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">2021年09月<span class="archive-list-count">5</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">2021年08月<span class="archive-list-count">15</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">2021年07月<span class="archive-list-count">12</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">2021年06月<span class="archive-list-count">8</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">2021年04月<span class="archive-list-count">2</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">2021年02月<span class="archive-list-count">2</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">2021年01月<span class="archive-list-count">6</span></a></li><li class="archive-list-item"><a class="archive-list-link is_center" href="/archives" >查看更多</a></li></ul></div></div></div><div class="card_widget card-webinfo"><div class="card-content"><div class="item_headline"><i class="fa fa-line-chart" aria-hidden="true"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo_item"><div class="webinfo_article_name">文章数目 :</div><div class="webinfo_article_count">107</div></div><div class="webinfo_item"><div class="webinfo_runtime_name">已运行时间 :</div><div class="webinfo_runtime_count" id="webinfo_runtime_count"></div><script id="runtionshow" src="/js/runtimeshow.js" start_date="2019/11/16 00:00:00">      </script></div><div class="webinfo_item">      <div class="webinfo_site_uv_name">本站访客数 :</div><div class="webinfo_site_uv_count" id="busuanzi_value_site_uv"></div></div><div class="webinfo_item"><div class="webinfo_site_name">本站总访问量 :</div><div class="webinfo_site_pv_count" id="busuanzi_value_site_pv"></div></div></div></div></div></div></div></div><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By kid1999</div><div class="framework-info"><span>驱动 </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="/js/search/local-search.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/baidupush.js"> </script><script src="/js/tw_cn.js"></script><script>translateInitilization()
-</script><script>if (/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {} else {
-  $('.full_page .nav_bg').css('background-attachment', 'fixed');
-}
+前置环境：启动 fabric test-netwrok 网络 并安装 fabric-sample中的 fabcar 链码
 
-</script><script src="https://cdn.jsdelivr.net/npm/typed.js"></script><script>var typed = new Typed(".subtitle", {
-strings: '昨夜西风凋碧树&#44;独上高楼望断天涯路。,Jack of all trades and master of none.'.split(","),
-startDelay: 300,
-typeSpeed: 100,
-loop: true,
-backSpeed: 50
-});
-</script><script>//首頁fullpage
-function alignContent() {
-  for (var n = $(window).height(), e = document.querySelectorAll(".full_page"), i = 0; i < e.length; i++) 
-    e[i].style.height = n + "px";
-    $("#site-info").each(function () {
-      var x = $(this).height();
-      $(this).css("top", (n-x)/2)       
+目录结构如下：
+12345docker-compose.yamlconfig.jsonconnection-profile/test-network.jsonorganizations/ordererOrganizations/organizations/peerOrganizations/
+核心就是配置前三个文件，完善explorer的用户、证书、和网络配置。后两个是test-network生成的证书文件夹
+其中test-network.json指定了explorer的登录账号密码和channel及组织证书信息
+docker-compose.yaml 指定了explorer的数据库容器和explorer容器的生成配置
+
+解析
+hy ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/#content-inner">11</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">kid1999</div><div class="author-info__description">一位计科学生的杂学手记。</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">107</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">83</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kid1999"><i class="fab fa-github"></i><span>点个关注</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">感谢访问，若喜欢请收藏 ^_^</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BPbft%E7%AE%97%E6%B3%95/" title="分布式一致性协议之Pbft算法"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式一致性协议之Pbft算法"/></a><div class="content"><a class="title" href="/2021/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BPbft%E7%AE%97%E6%B3%95/" title="分布式一致性协议之Pbft算法">分布式一致性协议之Pbft算法</a><time datetime="2021-10-26T15:20:52.000Z" title="发表于 2021-10-26 23:20:52">2021-10-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/24/IIOT%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/" title="IIOT区块链的强化学习优化"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IIOT区块链的强化学习优化"/></a><div class="content"><a class="title" href="/2021/10/24/IIOT%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/" title="IIOT区块链的强化学习优化">IIOT区块链的强化学习优化</a><time datetime="2021-10-24T14:57:33.000Z" title="发表于 2021-10-24 22:57:33">2021-10-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/" title="强化学习之策略学习"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强化学习之策略学习"/></a><div class="content"><a class="title" href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/" title="强化学习之策略学习">强化学习之策略学习</a><time datetime="2021-10-16T03:04:02.000Z" title="发表于 2021-10-16 11:04:02">2021-10-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" title="强化学习前置知识"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强化学习前置知识"/></a><div class="content"><a class="title" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" title="强化学习前置知识">强化学习前置知识</a><time datetime="2021-10-08T04:12:50.000Z" title="发表于 2021-10-08 12:12:50">2021-10-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/" title="强化学习之价值学习"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强化学习之价值学习"/></a><div class="content"><a class="title" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/" title="强化学习之价值学习">强化学习之价值学习</a><time datetime="2021-10-08T03:26:21.000Z" title="发表于 2021-10-08 11:26:21">2021-10-08</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Electron/"><span class="card-category-list-name">Electron</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/GoLang/"><span class="card-category-list-name">GoLang</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java-web/"><span class="card-category-list-name">Java web</span><span class="card-category-list-count">20</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/TypeScript/"><span class="card-category-list-name">TypeScript</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/"><span class="card-category-list-name">java基础语法</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"><span class="card-category-list-name">区块链</span><span class="card-category-list-count">19</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"><span class="card-category-list-name">大数据</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/"><span class="card-category-list-name">密码学</span><span class="card-category-list-count">4</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Axios/" style="font-size: 1.18em; color: #999ca1">Axios</a> <a href="/tags/BTC/" style="font-size: 1.1em; color: #999">BTC</a> <a href="/tags/DFS/" style="font-size: 1.1em; color: #999">DFS</a> <a href="/tags/DP/" style="font-size: 1.1em; color: #999">DP</a> <a href="/tags/DQN/" style="font-size: 1.1em; color: #999">DQN</a> <a href="/tags/Docker/" style="font-size: 1.26em; color: #999fa8">Docker</a> <a href="/tags/ETH/" style="font-size: 1.1em; color: #999">ETH</a> <a href="/tags/EasyMock/" style="font-size: 1.1em; color: #999">EasyMock</a> <a href="/tags/ElasticSearch/" style="font-size: 1.1em; color: #999">ElasticSearch</a> <a href="/tags/Electron/" style="font-size: 1.18em; color: #999ca1">Electron</a> <a href="/tags/Element-UI/" style="font-size: 1.1em; color: #999">Element-UI</a> <a href="/tags/Fabirc/" style="font-size: 1.5em; color: #99a9bf">Fabirc</a> <a href="/tags/FastDFS/" style="font-size: 1.1em; color: #999">FastDFS</a> <a href="/tags/Go/" style="font-size: 1.34em; color: #99a3b0">Go</a> <a href="/tags/Hadoop/" style="font-size: 1.26em; color: #999fa8">Hadoop</a> <a href="/tags/IO/" style="font-size: 1.1em; color: #999">IO</a> <a href="/tags/JPA/" style="font-size: 1.18em; color: #999ca1">JPA</a> <a href="/tags/Kafka/" style="font-size: 1.18em; color: #999ca1">Kafka</a> <a href="/tags/Kaptcha/" style="font-size: 1.1em; color: #999">Kaptcha</a> <a href="/tags/LayUI/" style="font-size: 1.1em; color: #999">LayUI</a> <a href="/tags/MyBatis/" style="font-size: 1.1em; color: #999">MyBatis</a> <a href="/tags/MyBatisPlus/" style="font-size: 1.1em; color: #999">MyBatisPlus</a> <a href="/tags/PKI/" style="font-size: 1.1em; color: #999">PKI</a> <a href="/tags/Raft/" style="font-size: 1.1em; color: #999">Raft</a> <a href="/tags/SVM/" style="font-size: 1.1em; color: #999">SVM</a> <a href="/tags/Shiro/" style="font-size: 1.1em; color: #999">Shiro</a> <a href="/tags/Solidity/" style="font-size: 1.1em; color: #999">Solidity</a> <a href="/tags/Spark/" style="font-size: 1.1em; color: #999">Spark</a> <a href="/tags/Spring/" style="font-size: 1.1em; color: #999">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 1.1em; color: #999">SpringBoot</a> <a href="/tags/SpringMVC/" style="font-size: 1.1em; color: #999">SpringMVC</a> <a href="/tags/Swagger2/" style="font-size: 1.1em; color: #999">Swagger2</a> <a href="/tags/Thymeleaf/" style="font-size: 1.1em; color: #999">Thymeleaf</a> <a href="/tags/TypeScript/" style="font-size: 1.1em; color: #999">TypeScript</a> <a href="/tags/Vue-js/" style="font-size: 1.18em; color: #999ca1">Vue.js</a> <a href="/tags/WEB/" style="font-size: 1.1em; color: #999">WEB</a> <a href="/tags/gRPC/" style="font-size: 1.1em; color: #999">gRPC</a> <a href="/tags/hello-world/" style="font-size: 1.42em; color: #99a6b7">hello world</a> <a href="/tags/jvm/" style="font-size: 1.1em; color: #999">jvm</a> <a href="/tags/makefile/" style="font-size: 1.1em; color: #999">makefile</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/10/"><span class="card-archive-list-date">十月 2021</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/09/"><span class="card-archive-list-date">九月 2021</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/08/"><span class="card-archive-list-date">八月 2021</span><span class="card-archive-list-count">15</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/07/"><span class="card-archive-list-date">七月 2021</span><span class="card-archive-list-count">12</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/06/"><span class="card-archive-list-date">六月 2021</span><span class="card-archive-list-count">8</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/04/"><span class="card-archive-list-date">四月 2021</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/02/"><span class="card-archive-list-date">二月 2021</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/01/"><span class="card-archive-list-date">一月 2021</span><span class="card-archive-list-count">6</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">107</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2019-11-15T16:00:00.000Z"></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">176.7k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-11-08T04:29:34.855Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By kid1999</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function subtitleType () {
+  if (true) { 
+    var typed = new Typed("#subtitle", {
+      strings: "昨夜西风凋碧树&#44;独上高楼望断天涯路。,Jack of all trades and master of none.".split(","),
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50
     })
+  } else {
+    document.getElementById("subtitle").innerHTML = '昨夜西风凋碧树&#44;独上高楼望断天涯路。'
+  }
 }
-alignContent();
 
-$(window).bind("resize", function () {
-  alignContent()
-})</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><script src="/js/third-party/ClickShowText.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

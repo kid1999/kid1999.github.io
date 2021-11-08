@@ -1,78 +1,156 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Transformer | Kid1999' Blog</title><meta name="description" content="Transformer"><meta name="keywords" content=""><meta name="author" content="kid1999"><meta name="copyright" content="kid1999"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="google-site-verification" content="google-site-verification=1QTg0QaNHFPMhpyEbi6sCIR6Po-bAsEjy0UCeBQ90Nc"><meta name="baidu-site-verification" content="code-STtYsRDbhz"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Transformer"><meta name="twitter:description" content="Transformer"><meta name="twitter:image" content="https://ae01.alicdn.com/kf/H33551ca5d3844b86a66fab8a09f02af7e.jpg"><meta property="og:type" content="article"><meta property="og:title" content="Transformer"><meta property="og:url" content="http://kid1999.github.io/2021/08/19/Transformer/"><meta property="og:site_name" content="Kid1999' Blog"><meta property="og:description" content="Transformer"><meta property="og:image" content="https://ae01.alicdn.com/kf/H33551ca5d3844b86a66fab8a09f02af7e.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
-var t = Cookies.get("theme");
-if (autoChangeMode == '1'){
-const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
-const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
-const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
-
-if (t === undefined){
-  if (isLightMode) activateLightMode()
-  else if (isDarkMode) activateDarkMode()
-  else if (isNotSpecified || hasNoSupport){
-    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
-    now = new Date();
-    hour = now.getHours();
-    isNight = hour < 6 || hour >= 18
-    isNight ? activateDarkMode() : activateLightMode()
-}
-} else if (t == 'light') activateLightMode()
-else activateDarkMode()
-
-
-} else if (autoChangeMode == '2'){
-  now = new Date();
-  hour = now.getHours();
-  isNight = hour < 6 || hour >= 18
-  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
-  else if (t === 'light') activateLightMode()
-  else activateDarkMode() 
-} else {
-  if ( t == 'dark' ) activateDarkMode()
-  else if ( t == 'light') activateLightMode()
-}
-
-function activateDarkMode(){
-  document.documentElement.setAttribute('data-theme', 'dark')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
-  }
-}
-function activateLightMode(){
-  document.documentElement.setAttribute('data-theme', 'light')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
-  }
-}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://kid1999.github.io/2021/08/19/Transformer/"><link rel="prev" title="GAN基础理解" href="http://kid1999.github.io/2021/08/20/GAN%E5%9F%BA%E7%A1%80%E7%90%86%E8%A7%A3/"><link rel="next" title="Self-attention" href="http://kid1999.github.io/2021/08/18/Self-attention/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Transformer | Kid1999' Blog</title><meta name="author" content="kid1999"><meta name="copyright" content="kid1999"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Transformer Transformer本质上是一个Sequence-to-sequence模型，他与self-attention和BERF都有很大的关联。  Sequence-to-sequence (Seq2seq) 要了解Transfermer,首先需要对Seq2seq有一些了解。  Sequence-to-sequence字如其名，就是输入是一个sequence，输出也是一个sequ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Transformer">
+<meta property="og:url" content="http://kid1999.github.io/2021/08/19/Transformer/index.html">
+<meta property="og:site_name" content="Kid1999&#39; Blog">
+<meta property="og:description" content="Transformer Transformer本质上是一个Sequence-to-sequence模型，他与self-attention和BERF都有很大的关联。  Sequence-to-sequence (Seq2seq) 要了解Transfermer,首先需要对Seq2seq有一些了解。  Sequence-to-sequence字如其名，就是输入是一个sequence，输出也是一个sequ">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.isoyu.com/bing_images.php">
+<meta property="article:published_time" content="2021-08-19T09:08:49.000Z">
+<meta property="article:modified_time" content="2021-08-19T09:08:49.000Z">
+<meta property="article:author" content="kid1999">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.isoyu.com/bing_images.php"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://kid1999.github.io/2021/08/19/Transformer/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="google-site-verification=1QTg0QaNHFPMhpyEbi6sCIR6Po-bAsEjy0UCeBQ90Nc"/><meta name="baidu-site-verification" content="code-STtYsRDbhz"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://kid1999.github.io","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  highlight_copy: 'false',
-  highlight_lang: 'true',
-  highlight_shrink: 'false',
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
   copy: {
     success: '复制成功',
     error: '复制错误',
     noSupport: '浏览器不支持'
   },
-  bookmark: {
-    title: 'Snackbar.bookmark.title',
-    message_prev: '按',
-    message_next: '键将本页加入书签'
+  relativeDate: {
+    homepage: false,
+    post: false
   },
-  runtime_unit: '天',
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
   copyright: undefined,
-  copy_copyright_js: false,
-  ClickShowText: {"text":"富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善","fontSize":"15px"},
-  medium_zoom: 'false',
-  Snackbar: undefined
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Transformer',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-08-19 17:08:49'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-}</script><!-- hexo injector head_end start -->
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Kid1999' Blog</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">107</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">83</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">13</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#Transformer"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">Transformer</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Sequence-to-sequence-Seq2seq"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">Sequence-to-sequence (Seq2seq)</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Seq2seq%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc_mobile_items-number">1.1.1.</span> <span class="toc_mobile_items-text">Seq2seq的应用</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#%E8%AF%AD%E9%9F%B3%E7%BF%BB%E8%AF%91"><span class="toc_mobile_items-number">1.1.1.1.</span> <span class="toc_mobile_items-text">语音翻译</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#TTS%E8%AF%AD%E9%9F%B3%E5%90%88%E6%88%90"><span class="toc_mobile_items-number">1.1.1.2.</span> <span class="toc_mobile_items-text">TTS语音合成</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Chatbot%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="toc_mobile_items-number">1.1.1.3.</span> <span class="toc_mobile_items-text">Chatbot聊天机器人</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Syntactic-Parsing-%E8%AF%AD%E6%B3%95%E8%A7%A3%E6%9E%90"><span class="toc_mobile_items-number">1.1.1.4.</span> <span class="toc_mobile_items-text">Syntactic Parsing 语法解析</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Object-Detection-%E7%9B%AE%E6%A0%87%E8%BF%BD%E8%B8%AA"><span class="toc_mobile_items-number">1.1.1.5.</span> <span class="toc_mobile_items-text">Object Detection 目标追踪</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#%E5%A4%9A%E5%88%86%E7%B1%BB%E4%B8%8E%E5%A4%9A%E6%A0%87%E7%AD%BE%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="toc_mobile_items-number">1.1.2.</span> <span class="toc_mobile_items-text">多分类与多标签分类问题</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Encoder-Decoder"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">Encoder-Decoder</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Encoder"><span class="toc_mobile_items-number">1.2.1.</span> <span class="toc_mobile_items-text">Encoder</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#residual-connection"><span class="toc_mobile_items-number">1.2.1.1.</span> <span class="toc_mobile_items-text">residual connection</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#layer-normalization"><span class="toc_mobile_items-number">1.2.1.2.</span> <span class="toc_mobile_items-text">layer normalization</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#FC-network"><span class="toc_mobile_items-number">1.2.1.3.</span> <span class="toc_mobile_items-text">FC network</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Encoder%E6%B5%81%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="toc_mobile_items-number">1.2.1.4.</span> <span class="toc_mobile_items-text">Encoder流程总结</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Encoder-1"><span class="toc_mobile_items-number">1.2.2.</span> <span class="toc_mobile_items-text">Encoder</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Decoder%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E4%B8%80%E6%AE%B5%E6%96%87%E5%AD%97"><span class="toc_mobile_items-number">1.2.2.1.</span> <span class="toc_mobile_items-text">Decoder如何生成一段文字</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Encoder-%E4%B8%8E-Decoder-%E5%AF%B9%E6%AF%94"><span class="toc_mobile_items-number">1.2.2.2.</span> <span class="toc_mobile_items-text">Encoder 与 Decoder 对比</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Encoder-%E4%B8%8E-Decoder-%E9%80%9A%E8%AE%AF"><span class="toc_mobile_items-number">1.2.2.3.</span> <span class="toc_mobile_items-text">Encoder 与 Decoder 通讯</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Training"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">Training</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Decoder-%E2%80%93-Non-autoregressive-NAT"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">Decoder – Non-autoregressive (NAT)</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Tips"><span class="toc_mobile_items-number">1.5.</span> <span class="toc_mobile_items-text">Tips</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Copy-Mechanism"><span class="toc_mobile_items-number">1.5.1.</span> <span class="toc_mobile_items-text">Copy Mechanism</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Summarization"><span class="toc_mobile_items-number">1.5.2.</span> <span class="toc_mobile_items-text">Summarization</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Guided-Attention-%EF%BC%88%E5%BC%95%E5%AF%BC%E6%B3%A8%E6%84%8F%E5%8A%9B%EF%BC%89"><span class="toc_mobile_items-number">1.5.3.</span> <span class="toc_mobile_items-text">Guided Attention  （引导注意力）</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Beam-Search-%E6%B3%A2%E6%9D%9F%E6%90%9C%E7%B4%A2"><span class="toc_mobile_items-number">1.5.4.</span> <span class="toc_mobile_items-text">Beam Search (波束搜索)</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Scheduled-Sampling-%EF%BC%88%E8%AE%A1%E5%88%92%E9%87%87%E6%A0%B7%EF%BC%89"><span class="toc_mobile_items-number">1.5.5.</span> <span class="toc_mobile_items-text">Scheduled Sampling （计划采样）</span></a></li></ol></li></ol></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Transformer"><span class="toc-number">1.</span> <span class="toc-text">Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-to-sequence-Seq2seq"><span class="toc-number">1.1.</span> <span class="toc-text">Sequence-to-sequence (Seq2seq)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Seq2seq%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">Seq2seq的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E9%9F%B3%E7%BF%BB%E8%AF%91"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">语音翻译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TTS%E8%AF%AD%E9%9F%B3%E5%90%88%E6%88%90"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">TTS语音合成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Chatbot%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">Chatbot聊天机器人</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Syntactic-Parsing-%E8%AF%AD%E6%B3%95%E8%A7%A3%E6%9E%90"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">Syntactic Parsing 语法解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Object-Detection-%E7%9B%AE%E6%A0%87%E8%BF%BD%E8%B8%AA"><span class="toc-number">1.1.1.5.</span> <span class="toc-text">Object Detection 目标追踪</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%88%86%E7%B1%BB%E4%B8%8E%E5%A4%9A%E6%A0%87%E7%AD%BE%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.2.</span> <span class="toc-text">多分类与多标签分类问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Encoder-Decoder"><span class="toc-number">1.2.</span> <span class="toc-text">Encoder-Decoder</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Encoder"><span class="toc-number">1.2.1.</span> <span class="toc-text">Encoder</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#residual-connection"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">residual connection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#layer-normalization"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">layer normalization</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FC-network"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">FC network</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Encoder%E6%B5%81%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">Encoder流程总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Encoder-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">Encoder</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Decoder%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E4%B8%80%E6%AE%B5%E6%96%87%E5%AD%97"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">Decoder如何生成一段文字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Encoder-%E4%B8%8E-Decoder-%E5%AF%B9%E6%AF%94"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">Encoder 与 Decoder 对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Encoder-%E4%B8%8E-Decoder-%E9%80%9A%E8%AE%AF"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">Encoder 与 Decoder 通讯</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Training"><span class="toc-number">1.3.</span> <span class="toc-text">Training</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decoder-%E2%80%93-Non-autoregressive-NAT"><span class="toc-number">1.4.</span> <span class="toc-text">Decoder – Non-autoregressive (NAT)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tips"><span class="toc-number">1.5.</span> <span class="toc-text">Tips</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Copy-Mechanism"><span class="toc-number">1.5.1.</span> <span class="toc-text">Copy Mechanism</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summarization"><span class="toc-number">1.5.2.</span> <span class="toc-text">Summarization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Guided-Attention-%EF%BC%88%E5%BC%95%E5%AF%BC%E6%B3%A8%E6%84%8F%E5%8A%9B%EF%BC%89"><span class="toc-number">1.5.3.</span> <span class="toc-text">Guided Attention  （引导注意力）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Beam-Search-%E6%B3%A2%E6%9D%9F%E6%90%9C%E7%B4%A2"><span class="toc-number">1.5.4.</span> <span class="toc-text">Beam Search (波束搜索)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scheduled-Sampling-%EF%BC%88%E8%AE%A1%E5%88%92%E9%87%87%E6%A0%B7%EF%BC%89"><span class="toc-number">1.5.5.</span> <span class="toc-text">Scheduled Sampling （计划采样）</span></a></li></ol></li></ol></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://ae01.alicdn.com/kf/H33551ca5d3844b86a66fab8a09f02af7e.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">Transformer</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2021-08-19<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2021-08-19</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon" aria-hidden="true"></i><span>字数总计: </span><span class="word-count">3.2k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon" aria-hidden="true"></i><span>阅读时长: 10 分钟</span><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true">       </i><span>阅读量: </span><span id="busuanzi_value_page_pv"></span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><blockquote>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">107</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">83</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.isoyu.com/bing_images.php')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Kid1999' Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Transformer</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-08-19T09:08:49.000Z" title="发表于 2021-08-19 17:08:49">2021-08-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-08-19T09:08:49.000Z" title="更新于 2021-08-19 17:08:49">2021-08-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Transformer"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><blockquote>
 <p>Transformer本质上是一个Sequence-to-sequence模型，他与self-attention和BERF都有很大的关联。</p>
 </blockquote>
 <h2 id="Sequence-to-sequence-Seq2seq"><a href="#Sequence-to-sequence-Seq2seq" class="headerlink" title="Sequence-to-sequence (Seq2seq)"></a>Sequence-to-sequence (Seq2seq)</h2><blockquote>
@@ -80,19 +158,19 @@ function activateLightMode(){
 </blockquote>
 <p>Sequence-to-sequence字如其名，就是输入是一个sequence，输出也是一个sequence的模型。且输出sequence的长度是未知的，需要机器学习的。</p>
 <p>举例来说,Seq2seq一个很好的应用就是 <strong>语音识别</strong>，<strong>输入跟输出的长度,当然是有一些关係,但是却没有绝对的关係</strong>，<strong>输出的长度由机器自己决定</strong>。</p>
-<p><img alt="image-20210429093940488" style="zoom: 80%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429093940488.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429093940488.png" alt="image-20210429093940488" style="zoom: 80%;" /></p>
 <p>除此之外，Seq2seq还有很多<strong>应用场景</strong>。</p>
-<h3 id="Seq2seq的应用"><a href="#Seq2seq的应用" class="headerlink" title="Seq2seq的应用"></a>Seq2seq的应用</h3><h4 id="语音翻译"><a href="#语音翻译" class="headerlink" title="语音翻译"></a>语音翻译</h4><p><img alt="image-20210429100418127" style="zoom:80%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429100418127.png" class="lazyload"></p>
+<h3 id="Seq2seq的应用"><a href="#Seq2seq的应用" class="headerlink" title="Seq2seq的应用"></a>Seq2seq的应用</h3><h4 id="语音翻译"><a href="#语音翻译" class="headerlink" title="语音翻译"></a>语音翻译</h4><p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429100418127.png" alt="image-20210429100418127" style="zoom:80%;" /></p>
 <p>机器把他听到的英文的声音讯号翻译成中文文字。</p>
-<h4 id="TTS语音合成"><a href="#TTS语音合成" class="headerlink" title="TTS语音合成"></a>TTS语音合成</h4><p><img alt="image-20210429105644179" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429105644179.png" class="lazyload"></p>
+<h4 id="TTS语音合成"><a href="#TTS语音合成" class="headerlink" title="TTS语音合成"></a>TTS语音合成</h4><p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429105644179.png" alt="image-20210429105644179" style="zoom:67%;" /></p>
 <p>我们如果是一个模型,输入语音 ，输出中文的文字,那就是<strong>语音识别</strong>,反过来 输入文字 输出声音讯号,就是<strong>语音合成</strong>。</p>
 <h4 id="Chatbot聊天机器人"><a href="#Chatbot聊天机器人" class="headerlink" title="Chatbot聊天机器人"></a>Chatbot聊天机器人</h4><p>聊天机器人就是你对它说一句话,它要给你一个回应,<strong>输入输出都是文字</strong>，文字就是一个vector Sequence。</p>
 <p>在NLP的领域,其实很多<strong>natural language processing的任务,都可以想成是question answering,QA的任务</strong>。</p>
-<p><img alt="image-20210429163745845" style="zoom: 80%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429163745845.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429163745845.png" alt="image-20210429163745845" style="zoom: 80%;" /></p>
 <p>值得注意的是,对多数NLP的任务,或对多数的语音相关的任务而言,往往為这些任务<strong>自定义模型,你会得到更好的结果</strong>。</p>
-<h4 id="Syntactic-Parsing-语法解析"><a href="#Syntactic-Parsing-语法解析" class="headerlink" title="Syntactic Parsing 语法解析"></a>Syntactic Parsing 语法解析</h4><p><img alt="image-20210429202108751" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429202108751.png" class="lazyload"></p>
+<h4 id="Syntactic-Parsing-语法解析"><a href="#Syntactic-Parsing-语法解析" class="headerlink" title="Syntactic Parsing 语法解析"></a>Syntactic Parsing 语法解析</h4><p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429202108751.png" alt="image-20210429202108751" style="zoom:67%;" /></p>
 <p>机器要做的事情是產生,一个<strong>文法的剖析树</strong> 告诉我们,deep加learning合起来,是一个名词片语,very加powerful合起来,是一个形容词片语,形容词片语加is以后会变成,一个动词片语,动词片语加名词片语合起来,是一个句子。</p>
-<p><img alt="image-20210429202417748" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429202417748.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429202417748.png" alt="image-20210429202417748" style="zoom:67%;" /></p>
 <p>但<strong>事实上一个树状的结构,可以硬是把他看作是一个Sequence</strong>。</p>
 <p>这个树状结构可以对应到一个,这样子的Sequence,从这个Sequence裡面,你也可以看出</p>
 <ul>
@@ -102,11 +180,11 @@ function activateLightMode(){
 <li>然后有这个形容词片语,他有一个左括号右括号</li>
 </ul>
 <p>这一个<strong>Sequence就代表了这一个tree 的structure</strong>。</p>
-<h4 id="Object-Detection-目标追踪"><a href="#Object-Detection-目标追踪" class="headerlink" title="Object Detection 目标追踪"></a>Object Detection 目标追踪</h4><p><img alt="image-20210429204527490" style="zoom: 50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429204527490.png" class="lazyload"></p>
+<h4 id="Object-Detection-目标追踪"><a href="#Object-Detection-目标追踪" class="headerlink" title="Object Detection 目标追踪"></a>Object Detection 目标追踪</h4><p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429204527490.png" alt="image-20210429204527490" style="zoom: 50%;" /></p>
 <p>object detection就是给机器一张图片,然后它把图片裡面的物件框出来。</p>
 <p>如此处的斑马一样。</p>
 <h3 id="多分类与多标签分类问题"><a href="#多分类与多标签分类问题" class="headerlink" title="多分类与多标签分类问题"></a>多分类与多标签分类问题</h3><p>多标签（multi-label）的分类问题可以通过seq2seq’s model来解决。意思是说<strong>同一个东西,它可以属于多个class</strong>，而这些class就可以通过sequence表示输出。</p>
-<p><img alt="image-20210429203936697" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429203936697.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429203936697.png" alt="image-20210429203936697" style="zoom:67%;" /></p>
 <p>多标签问题不同于多分类问题只输出一个类别，可以输出多个类别。输出多少类别由机器决定。</p>
 <p>举例来说,我把这些文章丢到一个classifier里</p>
 <ul>
@@ -115,40 +193,40 @@ function activateLightMode(){
 </ul>
 <h2 id="Encoder-Decoder"><a href="#Encoder-Decoder" class="headerlink" title="Encoder-Decoder"></a>Encoder-Decoder</h2><blockquote>
 <p>怎么做seq2seq这件事,一般的seq2seq’s model,它会分成两块 一块是Encoder,另外一块是Decoder。</p>
-<p><img alt="image-20210429205404198" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429205404198.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429205404198.png" alt="image-20210429205404198" style="zoom:67%;" /></p>
 </blockquote>
 <p>input一个sequence有Encoder,负责处理这个sequence,再把处理好的结果丢给Decoder,由Decoder决定,它要输出什麼样的sequence。</p>
 <h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><blockquote>
 <p>seq2seq model中 Encoder要做的事情,就是<strong>给一排向量，输出另外一排向量</strong></p>
 </blockquote>
-<p><img alt="image-20210429205911444" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429205911444.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429205911444.png" alt="image-20210429205911444" style="zoom:67%;" /></p>
 <p>给一排向量、输出一排向量这件事情,很多模型都可以做到,可能第一个想到的是,我们刚刚讲完的self-attention,其实不只self-attention,RNN CNN 其实也都能够做到,input一排向量,output另外一个同样长度的向量。</p>
 <p>在transformer裡面,transformer的Encoder,用的就是self-attention。</p>
 <p>现在的Encoder裡面,会<strong>分成很多很多的block</strong>。</p>
-<p><img alt="image-20210429210126607" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429210126607.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429210126607.png" alt="image-20210429210126607" style="zoom:67%;" /></p>
 <p>需要注意的是<strong>每一个block 其实,并不是neural network的一层</strong>。<strong>每一个block裡面做的事情,是好几个layer在做的事情</strong>。</p>
-<p><img alt="image-20210429210257652" style="zoom: 50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429210257652.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429210257652.png" alt="image-20210429210257652" style="zoom: 50%;" /></p>
 <ul>
 <li>先做一个<strong>self-attention</strong>,input一排vector以后,做self-attention,考虑整个sequence的资讯，Output另外一排vector.</li>
 <li>接下来这一排vector,会再丢到<strong>fully connected</strong>的feed forward network裡面,再output另外一排vector,这一排vector就是block的输出。</li>
 </ul>
 <p>在<strong>transformer裡面,self-attention做的事情是更复杂的</strong>。</p>
 <h4 id="residual-connection"><a href="#residual-connection" class="headerlink" title="residual connection"></a>residual connection</h4><p>在之前self-attention的时候,我们说 输入一排vector,就输出一排vector,这边的每一个vector,它是考虑了 所有的input以后,所得到的结果。</p>
-<p><img alt="image-20210429210831750" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429210831750.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429210831750.png" alt="image-20210429210831750" style="zoom:50%;" /></p>
 <p>但现在，在transformer裡面,它加入了一个设计,我们<strong>不只是输出这个vector</strong>,我们还要<strong>把这个vector加上它的input</strong>,它要把input拉过来 直接加给输出,得到新的output （类似于残差网络，将前面层网络的结果输入后面层网络）这样的设计叫做 <strong>residual connection ,它会把input直接跟output加起来,得到新的vector</strong>。</p>
 <h4 id="layer-normalization"><a href="#layer-normalization" class="headerlink" title="layer normalization"></a>layer normalization</h4><blockquote>
 <p>layer normalization做的事情,比bacth normalization更简单一点。</p>
 </blockquote>
-<p><img alt="image-20210429211313025" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429211313025.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429211313025.png" alt="image-20210429211313025" style="zoom:50%;" /></p>
 <p>输入一个向量 输出另外一个向量,不需要考虑batch,它会<strong>把输入的这个向量,计算它的mean跟standard deviation</strong>。</p>
 <p>但是要注意一下,<strong>batch normalization是对不同example,不同feature的同一个dimension,去计算mean跟standard deviation</strong>。</p>
 <p>但<strong>layer normalization,它是对同一个feature,同一个example裡面,不同的dimension,去计算mean跟standard deviation</strong>。</p>
 <h4 id="FC-network"><a href="#FC-network" class="headerlink" title="FC network"></a>FC network</h4><p>得到layer normalization的输出以后,它的这个输出 才是FC network的输入</p>
-<p><img alt="image-20210429211858981" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429211858981.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429211858981.png" alt="image-20210429211858981" style="zoom:50%;" /></p>
 <p>而<strong>FC network这边,也会对输出进行 residual connection，然后再对结果进行 layer normalization。</strong></p>
 <p>如此得到的输出,才是residual network裡面,一个<strong>block的输出</strong>。</p>
 <h4 id="Encoder流程总结"><a href="#Encoder流程总结" class="headerlink" title="Encoder流程总结"></a>Encoder流程总结</h4><p>Transfermer就是经过很多次block后计算的seq2seq模型。</p>
-<p><img alt="image-20210819115242729" data-src="https://i.loli.net/2021/08/19/nUslhjpqrA91YZM.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.loli.net/2021/08/19/nUslhjpqrA91YZM.png" alt="image-20210819115242729"></p>
 <p>每一次block的流程如下：</p>
 <ul>
 <li>首先 你有self-attention,其实在input的地方,还有加上positional encoding,我们之前已经有讲过,如果你只光用self-attention,你没有未知的资讯,所以你需要加上positional的information,然后在这个图上,有特别画出positional的information</li>
@@ -163,41 +241,41 @@ function activateLightMode(){
 <p>Decoder其实有两种,接下来会介绍比较常见的 <strong>Autoregressive  Decoder</strong>这个Decoder,是怎麼运作的。</p>
 </blockquote>
 <p>用<strong>语音识别</strong>,来当作例子来说明，<strong>语音识别</strong>就是<strong>输入一段声音,输出一串文字</strong>。</p>
-<p><img alt="image-20210505192814682" style="zoom: 50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505192814682.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505192814682.png" alt="image-20210505192814682" style="zoom: 50%;" /></p>
 <p><strong>Encoder</strong> 做的事情,就是<strong>输入一个 Vector Sequence</strong>,<strong>输出另外一个 Vector Sequence</strong>，<strong>Decoder 要做的事情就是产生输出</strong>,也就是<strong>產生语音识别的结果</strong>。</p>
 <h4 id="Decoder如何生成一段文字"><a href="#Decoder如何生成一段文字" class="headerlink" title="Decoder如何生成一段文字"></a>Decoder如何生成一段文字</h4><p>给它一个特殊的符号,代表开始，如：start，在NLP中是一个One-Hot 的 Vector 来表示。</p>
-<p><img alt="image-20210505193652691" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505193652691.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505193652691.png" alt="image-20210505193652691" style="zoom:50%;" /></p>
 <p>接下来Decoder 会<strong>吐出一个向量,这个 Vector 的长度很长,跟你的 Vocabulary 的 Size 是一样的</strong>。</p>
 <p><strong>Vocabulary Size</strong> 就是实现考虑好的 Decoder <strong>输出的大小</strong>，如：5000个汉字….</p>
 <p>每一个中文的字,都会对应到一个数值,因為在<strong>產生这个向量之前,你通常会先跑一个 Softmax</strong>,<strong>分数最高的一个中文字,它就是最终的输出</strong>。</p>
-<p><img alt="image-20210505195003941" style="zoom: 67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505195003941.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505195003941.png" alt="image-20210505195003941" style="zoom: 67%;" /></p>
 <p>其流程很简单，类似RNN。第一个输入是<strong>begin标识符</strong>，然后将其输出作为下一个的输入。以此类推，直到输入<strong>end标识符</strong>（<strong>使机器决定输出Sequence 的长度</strong>），输出最终结果。</p>
-<p><img alt="image-20210505203437172" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505203437172.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505203437172.png" alt="image-20210505203437172" style="zoom:67%;" /></p>
 <p>但是容易犯一个<strong>Error Propagation</strong>的问题，即：一步错，步步错。</p>
-<h4 id="Encoder-与-Decoder-对比"><a href="#Encoder-与-Decoder-对比" class="headerlink" title="Encoder 与 Decoder 对比"></a>Encoder 与 Decoder 对比</h4><p><img alt="image-20210505204215642" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505204215642.png" class="lazyload"></p>
+<h4 id="Encoder-与-Decoder-对比"><a href="#Encoder-与-Decoder-对比" class="headerlink" title="Encoder 与 Decoder 对比"></a>Encoder 与 Decoder 对比</h4><p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505204215642.png" alt="image-20210505204215642" style="zoom:50%;" /></p>
 <p>大体上两个结构是雷同的，只是Decoder更加复杂一点：多了中间的一块结果、结果要做softmax、Block里用的是 <strong>Masked Multi-Head Attention</strong>。</p>
 <p>Masked Multi-Head Attention：只是在原来的基础上做了一点限制，有点RNN的意思，就是每次只考虑左边几个向量的相关性，如q2时只考虑k1，k2，不考虑右边的。</p>
-<p><img alt="image-20210505205618457" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505205618457.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505205618457.png" alt="image-20210505205618457" style="zoom:50%;" /></p>
 <p>这个就是 <strong>Autoregressive  Decoder</strong> 的运作的方式。</p>
-<h4 id="Encoder-与-Decoder-通讯"><a href="#Encoder-与-Decoder-通讯" class="headerlink" title="Encoder 与 Decoder 通讯"></a>Encoder 与 Decoder 通讯</h4><p><img alt="image-20210506103314101" style="zoom: 80%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506103314101.png" class="lazyload"></p>
+<h4 id="Encoder-与-Decoder-通讯"><a href="#Encoder-与-Decoder-通讯" class="headerlink" title="Encoder 与 Decoder 通讯"></a>Encoder 与 Decoder 通讯</h4><p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506103314101.png" alt="image-20210506103314101" style="zoom: 80%;" /></p>
 <p>刚才没有介绍的Decoder中间多的一块叫做：<strong>Cross Attention</strong>，它是连接 Encoder 跟 Decoder 之间的桥樑。可以发现中间层的输入除了来自上一层，还有来自Encoder的输出，即Decoder 可以读到 Encoder 的输出。</p>
-<p><img alt="image-20210506105155338" style="zoom: 50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506105155338.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506105155338.png" alt="image-20210506105155338" style="zoom: 50%;" /></p>
 <p>Encoder 输入一排向量 $a^1 a^2 a^3$，Decoder 先吃 BEGIN 输出输入一个向量并乘上一个矩阵,得到一个 Query 叫做 q。</p>
 <p>相当于<strong>Encoder负责提供K、V，而Decoder负责Query</strong>。把这个 q 跟 $k^1 k^2 k^3$,去计算 Attention 的分数,得到 $α_1 α_2 α_3$，接下来再把 $α_1 α_2 α_3$,就乘上 $v^1 v^2 v^3$,再把它 Weighted Sum 加起来会得到 v。</p>
-<p><img alt="image-20210506105352521" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506105352521.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506105352521.png" alt="image-20210506105352521" style="zoom:50%;" /></p>
 <p>这一个 V,接下来会丢到 Fully-Connected ,Network 做接下来的处理,那这个步骤就是 q 来自於 Decoder,k 跟 v 来自於 Encoder,这个步骤就叫做 <strong>Cross Attention</strong>。</p>
-<h2 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h2><p><img alt="image-20210506121209178" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506121209178.png" class="lazyload"></p>
+<h2 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h2><p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506121209178.png" alt="image-20210506121209178" style="zoom:50%;" /></p>
 <p>其训练过程其实类似于分类问题，Decoder最后已经通过softmax处理了，结果放在一个One-Hot 的 Vector里。我们通过 <strong>Cross Entropy</strong>（交叉熵） 来衡量他们之间的差距，其值越小越好。</p>
-<p><img alt="image-20210506123013981" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506123013981.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506123013981.png" alt="image-20210506123013981" style="zoom:50%;" /></p>
 <p>在输入的时候给它<strong>正确的答案</strong>,那这件事情叫做 <strong>Teacher Forcing</strong>。</p>
 <p>但是在测试的时候，没有答案，所以可能会出现 <strong>Mismatch</strong> 的问题。</p>
 <h2 id="Decoder-–-Non-autoregressive-NAT"><a href="#Decoder-–-Non-autoregressive-NAT" class="headerlink" title="Decoder – Non-autoregressive (NAT)"></a>Decoder – Non-autoregressive (NAT)</h2><blockquote>
 <p>Non-Autoregressive ,通常缩写成 NAT,所以有时候 Autoregressive 的 Model,也缩写成 AT。</p>
 </blockquote>
 <p><strong>Autoregressive</strong> 的模型是，<strong>先输入 BEGIN</strong>,<strong>然后</strong>出现 w1,然后<strong>再</strong>把 w1 当做输入,<strong>再</strong>输出 w2,<strong>直到输出 END 為止</strong>。</p>
-<p><img alt="image-20210505213259792" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505213259792.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505213259792.png" alt="image-20210505213259792" style="zoom:67%;" /></p>
 <p><strong>NAT 不是依次产生</strong>，去除了类似RNN的前后依赖关系，<strong>一次把整个句子都产生出来</strong>，NAT 的 Decoder<strong>可能吃的是一整排的 BEGIN</strong>,让它一次输出一排 word 就结束了。</p>
-<p><img alt="image-20210505214100885" style="zoom:50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505214100885.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210505214100885.png" alt="image-20210505214100885" style="zoom:50%;" /></p>
 <p>但是如何知道Begin该设置多少个？我们应该输出几个字？</p>
 <ul>
 <li><strong>另外learn一个 Classifier</strong> 输入Encoder 的 Input, 输出 Decoder 应该要输出的长度。</li>
@@ -211,16 +289,16 @@ function activateLightMode(){
 </blockquote>
 <h3 id="Copy-Mechanism"><a href="#Copy-Mechanism" class="headerlink" title="Copy Mechanism"></a>Copy Mechanism</h3><p>就是说也许 <strong>Decoder 没有必要自己创造输出</strong>出来,它需要做的事情,也许是<strong>从输入的东西裡面复製</strong>一些东西出来。</p>
 <p>比如说：聊天机器人会用到上文中出现的一些词语。</p>
-<p><img alt="image-20210506160219468" style="zoom: 67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506160219468.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506160219468.png" alt="image-20210506160219468" style="zoom: 67%;" /></p>
 <h3 id="Summarization"><a href="#Summarization" class="headerlink" title="Summarization"></a>Summarization</h3><p>对于如：生成一篇文章的摘要这种工作，也许我们只是需要<strong>从输入中复制东西</strong>的能力。</p>
 <h3 id="Guided-Attention-（引导注意力）"><a href="#Guided-Attention-（引导注意力）" class="headerlink" title="Guided Attention  （引导注意力）"></a>Guided Attention  （引导注意力）</h3><blockquote>
 <p>够强迫机器,一定要把输入的每一个东西通通看过一遍。</p>
 </blockquote>
 <p>Guiding Attention 要做的事情就是,<strong>要求机器它在做 Attention 的时候,是有固定的方式的</strong></p>
 <p>比如语音识别中，我们想像中的 <strong>Attention,应该就是由左向右</strong>。</p>
-<p><img alt="image-20210506163030902" style="zoom:67%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506163030902.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506163030902.png" alt="image-20210506163030902" style="zoom:67%;" /></p>
 <h3 id="Beam-Search-波束搜索"><a href="#Beam-Search-波束搜索" class="headerlink" title="Beam Search (波束搜索)"></a>Beam Search (波束搜索)</h3><p>举例说明：假设我们现在的这个 <strong>Decoder就只能產生两个字</strong>,一个叫做 A 一个叫做 B。Decoder 每一步在 A B 裡面决定一个,然后决定了 A 以后,再把 A 当做输入, 然后再决定 A B 要选哪一个以此类推。</p>
-<p><img alt="image-20210506163652097" style="zoom: 50%;" data-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506163652097.png" class="lazyload"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210506163652097.png" alt="image-20210506163652097" style="zoom: 50%;" /></p>
 <p>如果我们每次都选分数最高的一步走（贪心），叫做：<strong>Greedy Decoding</strong></p>
 <p>如果我们使用一种近似找到预估的结果最好的路线，这个就是：<strong>Beam Search</strong></p>
 <p>但是需要注意的是：<strong>这算法有时候有用,有时候没有用</strong></p>
@@ -233,37 +311,15 @@ function activateLightMode(){
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Wv411h7kN?p=34">https://www.bilibili.com/video/BV1Wv411h7kN?p=34</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/unclestrong/DeepLearning_LHY21_Notes">https://github.com/unclestrong/DeepLearning_LHY21_Notes</a></p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kid1999</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://kid1999.github.io/2021/08/19/Transformer/">http://kid1999.github.io/2021/08/19/Transformer/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://kid1999.github.io">Kid1999' Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://ae01.alicdn.com/kf/H33551ca5d3844b86a66fab8a09f02af7e.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button"><i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png"><div class="post-qr-code__desc">微信</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2021/08/20/GAN%E5%9F%BA%E7%A1%80%E7%90%86%E8%A7%A3/"><img class="prev_cover lazyload" data-src="https://pic.superbed.cn/item/5dcfef6a8e0e2e3ee97c7abf.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>GAN基础理解</span></div></a></div><div class="next-post pull_right"><a href="/2021/08/18/Self-attention/"><img class="next_cover lazyload" data-src="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>Self-attention</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
-  clientID: 'eac7c03188ca8d110797',
-  clientSecret: '42d63112bb6209d8bf965ae1838947e98eb6f557',
-  repo: 'kid1999.github.io',
-  owner: 'kid1999',
-  admin: 'kid1999',
-  id: md5(decodeURI(location.pathname)),
-  language: 'zh-CN'
-})
-gitalk.render('gitalk-container')</script></div></div></div><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By kid1999</div><div class="framework-info"><span>驱动 </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-    processEscapes: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kid1999</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://kid1999.github.io/2021/08/19/Transformer/">http://kid1999.github.io/2021/08/19/Transformer/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://kid1999.github.io" target="_blank">Kid1999' Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://api.isoyu.com/bing_images.php" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/"/></a><div class="post-qr-code-desc"></div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/08/20/GAN%E5%9F%BA%E7%A1%80%E7%90%86%E8%A7%A3/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">GAN基础理解</div></div></a></div><div class="next-post pull-right"><a href="/2021/08/18/Self-attention/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Self-attention</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">kid1999</div><div class="author-info__description">一位计科学生的杂学手记。</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">107</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">83</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kid1999"><i class="fab fa-github"></i><span>点个关注</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">感谢访问，若喜欢请收藏 ^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Transformer"><span class="toc-number">1.</span> <span class="toc-text">Transformer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Sequence-to-sequence-Seq2seq"><span class="toc-number">1.1.</span> <span class="toc-text">Sequence-to-sequence (Seq2seq)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Seq2seq%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">Seq2seq的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E9%9F%B3%E7%BF%BB%E8%AF%91"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">语音翻译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TTS%E8%AF%AD%E9%9F%B3%E5%90%88%E6%88%90"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">TTS语音合成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Chatbot%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">Chatbot聊天机器人</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Syntactic-Parsing-%E8%AF%AD%E6%B3%95%E8%A7%A3%E6%9E%90"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">Syntactic Parsing 语法解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Object-Detection-%E7%9B%AE%E6%A0%87%E8%BF%BD%E8%B8%AA"><span class="toc-number">1.1.1.5.</span> <span class="toc-text">Object Detection 目标追踪</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%88%86%E7%B1%BB%E4%B8%8E%E5%A4%9A%E6%A0%87%E7%AD%BE%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.2.</span> <span class="toc-text">多分类与多标签分类问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Encoder-Decoder"><span class="toc-number">1.2.</span> <span class="toc-text">Encoder-Decoder</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Encoder"><span class="toc-number">1.2.1.</span> <span class="toc-text">Encoder</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#residual-connection"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">residual connection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#layer-normalization"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">layer normalization</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FC-network"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">FC network</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Encoder%E6%B5%81%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">Encoder流程总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Encoder-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">Encoder</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Decoder%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E4%B8%80%E6%AE%B5%E6%96%87%E5%AD%97"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">Decoder如何生成一段文字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Encoder-%E4%B8%8E-Decoder-%E5%AF%B9%E6%AF%94"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">Encoder 与 Decoder 对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Encoder-%E4%B8%8E-Decoder-%E9%80%9A%E8%AE%AF"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">Encoder 与 Decoder 通讯</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Training"><span class="toc-number">1.3.</span> <span class="toc-text">Training</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decoder-%E2%80%93-Non-autoregressive-NAT"><span class="toc-number">1.4.</span> <span class="toc-text">Decoder – Non-autoregressive (NAT)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tips"><span class="toc-number">1.5.</span> <span class="toc-text">Tips</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Copy-Mechanism"><span class="toc-number">1.5.1.</span> <span class="toc-text">Copy Mechanism</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summarization"><span class="toc-number">1.5.2.</span> <span class="toc-text">Summarization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Guided-Attention-%EF%BC%88%E5%BC%95%E5%AF%BC%E6%B3%A8%E6%84%8F%E5%8A%9B%EF%BC%89"><span class="toc-number">1.5.3.</span> <span class="toc-text">Guided Attention  （引导注意力）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Beam-Search-%E6%B3%A2%E6%9D%9F%E6%90%9C%E7%B4%A2"><span class="toc-number">1.5.4.</span> <span class="toc-text">Beam Search (波束搜索)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scheduled-Sampling-%EF%BC%88%E8%AE%A1%E5%88%92%E9%87%87%E6%A0%B7%EF%BC%89"><span class="toc-number">1.5.5.</span> <span class="toc-text">Scheduled Sampling （计划采样）</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BPbft%E7%AE%97%E6%B3%95/" title="分布式一致性协议之Pbft算法"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式一致性协议之Pbft算法"/></a><div class="content"><a class="title" href="/2021/10/26/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E4%B9%8BPbft%E7%AE%97%E6%B3%95/" title="分布式一致性协议之Pbft算法">分布式一致性协议之Pbft算法</a><time datetime="2021-10-26T15:20:52.000Z" title="发表于 2021-10-26 23:20:52">2021-10-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/24/IIOT%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/" title="IIOT区块链的强化学习优化"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IIOT区块链的强化学习优化"/></a><div class="content"><a class="title" href="/2021/10/24/IIOT%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96/" title="IIOT区块链的强化学习优化">IIOT区块链的强化学习优化</a><time datetime="2021-10-24T14:57:33.000Z" title="发表于 2021-10-24 22:57:33">2021-10-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/" title="强化学习之策略学习"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强化学习之策略学习"/></a><div class="content"><a class="title" href="/2021/10/16/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0/" title="强化学习之策略学习">强化学习之策略学习</a><time datetime="2021-10-16T03:04:02.000Z" title="发表于 2021-10-16 11:04:02">2021-10-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" title="强化学习前置知识"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强化学习前置知识"/></a><div class="content"><a class="title" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" title="强化学习前置知识">强化学习前置知识</a><time datetime="2021-10-08T04:12:50.000Z" title="发表于 2021-10-08 12:12:50">2021-10-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/" title="强化学习之价值学习"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://api.isoyu.com/bing_images.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强化学习之价值学习"/></a><div class="content"><a class="title" href="/2021/10/08/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%AD%A6%E4%B9%A0/" title="强化学习之价值学习">强化学习之价值学习</a><time datetime="2021-10-08T03:26:21.000Z" title="发表于 2021-10-08 11:26:21">2021-10-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By kid1999</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
   },
-  CommonHTML: {
-    linebreaks: { automatic: true, width: "90% container" }
-  },
-  "HTML-CSS": { 
-    linebreaks: { automatic: true, width: "90% container" }
-  },
-  "SVG": { 
-    linebreaks: { automatic: true, width: "90% container" }
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
   }
-});
-</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
-  var all = MathJax.Hub.getAllJax(), i;
-  for (i=0; i < all.length; i += 1) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script async src="/js/search/local-search.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/baidupush.js"> </script><script src="/js/tw_cn.js"></script><script>translateInitilization()
-</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><script src="/js/third-party/ClickShowText.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
