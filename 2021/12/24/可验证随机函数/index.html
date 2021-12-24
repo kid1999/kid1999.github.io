@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>可验证随机函数 | Kid1999' Blog</title><meta name="keywords" content="可验证随机函数"><meta name="author" content="kid1999"><meta name="copyright" content="kid1999"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="可验证随机函数VRF VRF是一种将输入映射到可验证的伪随机输出的加密方案。 VRF 的目的就是要生成一个真正随机、无法被预测而且还可以被验证的随机数。  在区块链中，被用于随机选择出块节点和验证节点，并提供验证节点的功能。 定义可验证随机函数可以看作是一个随机预言机（Random Oracle），可以通过任意的一个输入，获得一个随机数输出。可验证随机函数比随机预言机多了一个非交互的零知识证明，可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="可验证随机函数">
+<meta property="og:url" content="http://kid1999.github.io/2021/12/24/%E5%8F%AF%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Kid1999&#39; Blog">
+<meta property="og:description" content="可验证随机函数VRF VRF是一种将输入映射到可验证的伪随机输出的加密方案。 VRF 的目的就是要生成一个真正随机、无法被预测而且还可以被验证的随机数。  在区块链中，被用于随机选择出块节点和验证节点，并提供验证节点的功能。 定义可验证随机函数可以看作是一个随机预言机（Random Oracle），可以通过任意的一个输入，获得一个随机数输出。可验证随机函数比随机预言机多了一个非交互的零知识证明，可">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg">
+<meta property="article:published_time" content="2021-12-24T04:01:10.000Z">
+<meta property="article:modified_time" content="2021-12-24T04:01:10.000Z">
+<meta property="article:author" content="kid1999">
+<meta property="article:tag" content="可验证随机函数">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://kid1999.github.io/2021/12/24/%E5%8F%AF%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="google-site-verification=1QTg0QaNHFPMhpyEbi6sCIR6Po-bAsEjy0UCeBQ90Nc"/><meta name="baidu-site-verification" content="code-STtYsRDbhz"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=google-site-verification=1QTg0QaNHFPMhpyEbi6sCIR6Po-bAsEjy0UCeBQ90Nc"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'google-site-verification=1QTg0QaNHFPMhpyEbi6sCIR6Po-bAsEjy0UCeBQ90Nc');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '可验证随机函数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-24 12:01:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">114</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Kid1999' Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">可验证随机函数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-24T04:01:10.000Z" title="发表于 2021-12-24 12:01:10">2021-12-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-24T04:01:10.000Z" title="更新于 2021-12-24 12:01:10">2021-12-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="可验证随机函数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="可验证随机函数VRF"><a href="#可验证随机函数VRF" class="headerlink" title="可验证随机函数VRF"></a>可验证随机函数VRF</h1><blockquote>
+<p>VRF是一种将输入映射到可验证的伪随机输出的加密方案。</p>
+<p>VRF 的目的就是要生成一个真正随机、无法被预测而且还可以被验证的随机数。</p>
+</blockquote>
+<p>在区块链中，被用于随机选择出块节点和验证节点，并提供验证节点的功能。</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>可验证随机函数可以看作是一个随机预言机（Random Oracle），可以通过任意的一个输入，获得一个随机数输出。可验证随机函数比随机预言机多了一个非交互的零知识证明，可以用来证明这个随机数的确是某个人生成的。</p>
+<p>随机预言机有两个特征：</p>
+<ul>
+<li>对于不同的 Input，Output 的值是随机的，并且均匀分布在值域范围内。</li>
+<li>对于相同的 Input，它得到的 Output 一定是相同的。</li>
+</ul>
+<p>首先讲一个简单的哈希函数，比如结合了secret的哈希函数：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = SHA256(secret,info)</span><br></pre></td></tr></table></figure>
+<p>上面的函数，要想得到结果result，需要secret和info；要验证result，也需要secret和info，也就是说需要知道secret才能验证info和result是否对应匹配。</p>
+<p>有没有可能在不出示secret的情况下，验证result和info是否对应匹配。这就是可验证随机函数VRF可以做到的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = VRF_HASH(SK,info)</span><br></pre></td></tr></table></figure>
+<p>其中SK表示secret key，是私钥，不对外公开的，自己保存即可。与SK配对的PK表示public key，是公钥，需要公开给验证者的。有了上面这些基本的元素，具体的VRF操作流程就非常简单清晰了：</p>
+<ul>
+<li>1.证明者生成一对秘钥，PK和SK；</li>
+<li>2.证明者计算result = VRF_HASH(SK,info)；</li>
+<li>3.证明者计算proof = VRF_Proof(SK,info);</li>
+<li>4.证明者把result和proof递交给验证者;</li>
+<li>5.验证者计算result = VRF_P2H(proof)是否成立，若成立，继续，否则中止；</li>
+<li>6.证明者把PK，info递交给验证者；</li>
+<li>7.验证者计算True/False = VRF_Verify(PK,info,proof),True表示验证通过，False表示验证未通过。</li>
+</ul>
+<p>验证通过，指proof是否是通过info生成的，通过proof是否可以计算出result，从而推导出info和result是对应匹配的。从上面可以看出，验证者并没有获得证明者的私钥SK，验证者同样可以推导出info和result是否对应匹配，这就是VRF的妙用。</p>
+<p>对哈希函数的不断演化，可以简单用如下的路径来表示：</p>
+<blockquote>
+<p>原始的哈希函数: info -&gt; result</p>
+<p>带密钥的哈希函数： info,secret -&gt; result</p>
+<p>公钥版本的VRF： info,SK -&gt; proof,PK -&gt; result</p>
+</blockquote>
+<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><p>可验证随机函数一共包含四个函数：</p>
+<ol>
+<li><p>生成密钥，生成一个公钥私钥对；</p>
+</li>
+<li><p>生成随机数输出；</p>
+</li>
+<li><p>计算零知识证明；</p>
+</li>
+<li><p>验证随机数输出。</p>
+</li>
+</ol>
+<p>其大概流程如上，下面是基于椭圆曲线加密算法实现VRF的具体算法流程：</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img-blog.csdnimg.cn/20200629163024523.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ppbmd6aTEyMzQ1Njc4OQ==,size_16,color_FFFFFF,t_70#pic_center" alt="可验证随机函数的设计"></p>
+<p>更对实现的细节，参考：<a target="_blank" rel="noopener" href="https://open.bu.edu/handle/2144/29225">Goldberg S, Vcelak J, Papadopoulos D, et al. Verifiable random functions (VRFs)[J]. 2018.</a></p>
+<p>基于GO中对该流程实现的demo</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/r2ishiguro/vrf/go/vrf_ed25519&quot;</span></span><br><span class="line">	<span class="string">&quot;golang.org/x/crypto/ed25519&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> message = <span class="string">&quot;message&quot;</span></span><br><span class="line">	pk, sk, err := ed25519.GenerateKey(<span class="literal">nil</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;errors&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	c := vrf_ed25519.ECVRF_hash_to_curve([]<span class="keyword">byte</span>(message), pk)</span><br><span class="line">	fmt.Println(<span class="string">&quot;Hash:&quot;</span>)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">	pi, err := vrf_ed25519.ECVRF_prove(pk, sk, []<span class="keyword">byte</span>(message))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;errors&quot;</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println()</span><br><span class="line">		fmt.Println(<span class="string">&quot;Proof:&quot;</span>)</span><br><span class="line">		fmt.Println(pi)</span><br><span class="line">	&#125;</span><br><span class="line">	res, err := vrf_ed25519.ECVRF_verify(pk, pi, []<span class="keyword">byte</span>(message))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;errors&quot;</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println()</span><br><span class="line">		fmt.Println(<span class="string">&quot;Result:&quot;</span>)</span><br><span class="line">		fmt.Println(res)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="在区块链中的应用"><a href="#在区块链中的应用" class="headerlink" title="在区块链中的应用"></a>在区块链中的应用</h2><blockquote>
+<p>VRF在 Algorand 和 Dfinity 的共识机制中都被使用到。</p>
+</blockquote>
+<h3 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h3><p>假设全网有 100 个节点，我想生成下一轮一个节点谁打包，我以某一轮的轮次作为输入，然后随机输出的值必须要是在 1-100 之间的自然数（因为网络中只有 100 个节点）。这就每一轮都选出了一个打包节点的人。</p>
+<p>VRF 的方式是，让各个节点自己抽签，如果抽中了之后，大家可以很容易地验证这个结果确实是你生成的。具体过程有可能是这样的：假设现在是 round 10（第 10 轮），节点们可能会轮流抽签，以节点自己的私钥 + 一个全网都知道的随机数（比如是这轮的轮次 10）作为输入，生成了一个随机数（0-100）和零知识证明；设置一个条件：100 个节点轮流抽签，谁先抽出来的随机数大于 10，就是这一轮的打包者。假设 5 号节点抽到了 11，可是只有 5 号知道其他人不知道，因此他在广播这个随机的同时还需要广播一个零知识证明。通过零知识证明，全网只需要通过 5 号的公钥就可以验证，接受 5 号为这轮打包者。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>VRF其实和Pow的hash探索过程类似，都是为了随机安全的选出出块节点，Pow主要问题在于功耗和性能。而VRF利用本地随机抽签（类似pow挖矿，不过是生成随机数），大家可验证的方式（类似pow中验证hash）。</p>
+<p>但是VRF自身容易受到女巫攻击，所以结合Pos或者设置用户注册准入门槛，可以比较完备的解决区块链中共识的问题。</p>
+<h3 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h3><p>VRF 已经在 Cardano 、Dfinity 和 Algorand等项目中得到使用：</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img-blog.csdnimg.cn/img_convert/07d22328cdb4a62ced761c8d358f4f7e.png" style="zoom:67%;" /></p>
+<h3 id="VBFT"><a href="#VBFT" class="headerlink" title="VBFT"></a>VBFT</h3><p>VBFT 的每轮共识中：</p>
+<ul>
+<li><p>根据 VRF 从共识网络中选择备选提案节点，各个备选节点将独立提出备选区块；</p>
+</li>
+<li><p>根据 VRF 从共识网络中选择多个验证节点，每个验证节点将从网络中收集备选的区块，进行验证，然后对最高优先级的备选区块进行投票；</p>
+</li>
+<li><p>根据 VRF 从共识网络中选择多个确认节点，对上述验证节点的投票结果进行统计验证，并确定出最终的共识结果。</p>
+</li>
+<li><p>所有节点都将接收确认节点的共识结果，并在一轮共识确认后开启新的共识。</p>
+</li>
+</ul>
+<h3 id="Algorand-和-Dfinity"><a href="#Algorand-和-Dfinity" class="headerlink" title="Algorand 和 Dfinity"></a>Algorand 和 Dfinity</h3><p>大体流程都是利用VRF选择打包者，选择验证者，排序选择区块。但是VRF算法的细节实现不同。</p>
+<ul>
+<li>输入值由前一个随机数（最初的随机数却是协议给定的）和某种代表高度、轮次的变量进行组合</li>
+<li>然后用私钥对之进行签名（或者是先签名再组合）</li>
+<li>最后哈希一下得出最新的随机数</li>
+</ul>
+<p>值得注意的两点：</p>
+<ul>
+<li>签名算法应当具有唯一性，也就是用同一把私钥对同样的信息进行签名，只有一个合法签名可以通过验证<ul>
+<li>如果不存在这个性质，如：SM2。会存在反复尝试多次签名，以挑选最优随机数的可能。</li>
+</ul>
+</li>
+<li>避免在生成新随机数时将当前块的数据作为随机性来源之一，比如引用本块交易列表的 merkle root 值等<ul>
+<li>出块者可能会尝试打包不同的出块顺序、交易以达到更有利的随机数的可能。</li>
+</ul>
+</li>
+</ul>
+<p>当然Dfinity中除了使用到VRF进行节点选择，验证。还有用到BLS阈值签名算法，出块或验证需要在VRF选出的M个出块节点和验证节点中持有其中N个节点的签名才能通过。</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shangsongwww/article/details/88813116">https://blog.csdn.net/shangsongwww/article/details/88813116</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c3f239a6c858">https://www.jianshu.com/p/c3f239a6c858</a></p>
+<p><a target="_blank" rel="noopener" href="https://open.bu.edu/handle/2144/29225">Goldberg S, Vcelak J, Papadopoulos D, et al. Verifiable random functions (VRFs)[J]. 2018.</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/c7zVK2VN36v7WZQzXhv-7A">《区块链中VRF的应用及原理解析》</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kid1999</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://kid1999.github.io/2021/12/24/%E5%8F%AF%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/">http://kid1999.github.io/2021/12/24/%E5%8F%AF%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://kid1999.github.io" target="_blank">Kid1999' Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8F%AF%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/">可验证随机函数</a></div><div class="post_share"><div class="social-share" data-image="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/"/></a><div class="post-qr-code-desc"></div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/12/24/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://ae01.alicdn.com/kf/H52f3a2530f774009aba8ec0c2bfa0c6bd.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">隐私计算方法</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://ae01.alicdn.com/kf/H340f46b2cafd47248f643b32d3629cc3d.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">kid1999</div><div class="author-info__description">一位计科学生的杂学手记。</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">114</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kid1999"><i class="fab fa-github"></i><span>点个关注</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">感谢访问，若喜欢请收藏 ^_^</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%AF%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0VRF"><span class="toc-number">1.</span> <span class="toc-text">可验证随机函数VRF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">在区块链中的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="toc-number">1.3.1.</span> <span class="toc-text">举例说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-number">1.3.3.</span> <span class="toc-text">实际应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VBFT"><span class="toc-number">1.3.4.</span> <span class="toc-text">VBFT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorand-%E5%92%8C-Dfinity"><span class="toc-number">1.3.5.</span> <span class="toc-text">Algorand 和 Dfinity</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/12/24/%E5%8F%AF%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/" title="可验证随机函数">可验证随机函数</a><time datetime="2021-12-24T04:01:10.000Z" title="发表于 2021-12-24 12:01:10">2021-12-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/12/24/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/" title="隐私计算方法">隐私计算方法</a><time datetime="2021-12-24T04:00:03.000Z" title="发表于 2021-12-24 12:00:03">2021-12-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/12/09/test-network%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/" title="Fabric-Sample test-network脚本解析">Fabric-Sample test-network脚本解析</a><time datetime="2021-12-09T03:48:55.000Z" title="发表于 2021-12-09 11:48:55">2021-12-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/12/07/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" title="强化学习常见算法总结">强化学习常见算法总结</a><time datetime="2021-12-07T11:52:17.000Z" title="发表于 2021-12-07 19:52:17">2021-12-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/12/05/k8s%E7%AE%80%E8%AE%B0/" title="k8s简记">k8s简记</a><time datetime="2021-12-05T12:44:27.000Z" title="发表于 2021-12-05 20:44:27">2021-12-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 By kid1999</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
