@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>k8s的部署安装</title>
+      <link href="/2022/03/11/k8s%E7%9A%84%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85/"/>
+      <url>/2022/03/11/k8s%E7%9A%84%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85/</url>
+      
+        <content type="html"><![CDATA[<h2 id="基于Kind部署K8S"><a href="#基于Kind部署K8S" class="headerlink" title="基于Kind部署K8S"></a>基于Kind部署K8S</h2><blockquote><p>kind（Kubernetes IN Docker） 是一个基于 docker 构建 Kubernetes 集群的工具，非常适合用来在本地搭建基于 Kubernetes 的开发/测试环境。</p></blockquote><ul><li>kind的安装，参照：<a href="https://kind.sigs.k8s.io/docs/user/quick-start/">https://kind.sigs.k8s.io/docs/user/quick-start/</a></li></ul><p>kind的基础命令：</p><ul><li><p>创建集群</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kind create cluster # 默认创建名为kind的集群</span><br><span class="line">kind create cluster --name kind2 # 创建名为kind2的集群</span><br></pre></td></tr></table></figure></li><li><p>与集群交互</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kind get clusters  #列出kind集群</span><br><span class="line">kubectl cluster-info --context kind-kind  #与特定集群进行交互</span><br><span class="line"></span><br></pre></td></tr></table></figure></li><li><p>删除集群</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kind delete cluster</span><br><span class="line">kind delete cluster --name kind</span><br></pre></td></tr></table></figure></li><li><p>加载images到集群</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kind load docker-image image-0 image-1 --name kind2</span><br></pre></td></tr></table></figure></li><li><p>配置集群</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kind create cluster --config kind-example-config.yaml</span><br></pre></td></tr></table></figure><p>配置文件</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># three node (two workers) cluster config</span><br><span class="line">kind: Cluster</span><br><span class="line">apiVersion: kind.x-k8s.io/v1alpha4</span><br><span class="line">nodes:</span><br><span class="line">- role: control-plane</span><br><span class="line">  extraPortMappings:</span><br><span class="line">  - containerPort: 80</span><br><span class="line">    hostPort: 80</span><br><span class="line">    listenAddress: &quot;0.0.0.0&quot; # Optional, defaults to &quot;0.0.0.0&quot;</span><br><span class="line">    protocol: tcp # Optional, defaults to tcp</span><br><span class="line">- role: worker</span><br><span class="line">- role: worker</span><br></pre></td></tr></table></figure></li><li><p>查询</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get node</span><br><span class="line">kubectl get po -n kube-system</span><br></pre></td></tr></table></figure></li></ul><h2 id="基于脚本部署K8S"><a href="#基于脚本部署K8S" class="headerlink" title="基于脚本部署K8S"></a>基于脚本部署K8S</h2><p>细节参考：<a href="https://github.com/kid1999/k8s-install-shell">https://github.com/kid1999/k8s-install-shell</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> k8s </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>可验证随机函数</title>
       <link href="/2021/12/24/%E5%8F%AF%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/"/>
       <url>/2021/12/24/%E5%8F%AF%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/</url>
@@ -2524,9 +2549,9 @@
             
             <tag> Go </tag>
             
-            <tag> 并发编程 </tag>
-            
             <tag> 设计模式 </tag>
+            
+            <tag> 并发编程 </tag>
             
         </tags>
       
